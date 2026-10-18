@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sigma Analist — Predicción de emergencias de gas en Montería</title>
+  <meta name="description" content="Modelo analítico para la caracterización y predicción de la demanda de emergencias en la red de distribución de gas natural de Montería. Caso de estudio: Surtigas.">
+  <meta name="author" content="Sigma Analist">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sigma Analist — Predicción de emergencias de gas en Montería">
+  <meta property="og:description" content="Un modelo que pronostica la demanda diaria de emergencias de gas y reduce el error del pronóstico un 34 % frente a los métodos de referencia.">
+  <meta property="og:image" content="assets/figuras/fig15_mae_entrenamiento_prueba.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#fefaf3">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="css/styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <header class="nav" id="nav">
+    <a class="nav-brand" href="#inicio" aria-label="Sigma Analist, inicio">
+      <span class="brand-mark" aria-hidden="true">Σ</span>
+      <span>Sigma Analist</span>
+    </a>
+    <nav class="nav-links" id="nav-links" aria-label="Secciones">
+      <a href="#problema">Problema</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#equipo">Equipo</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn nav-burger" type="button" id="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Indicador compacto para pantallas donde no cabe la regla lateral -->
+  <div class="mini-ruler" id="mini-ruler" aria-hidden="true">
+    <span class="mini-ruler-label" id="mini-ruler-label">Sigma</span>
+    <span class="mini-ruler-bar"><span id="mini-ruler-fill"></span></span>
+  </div>
+
+  <main id="contenido">
+
+    <!-- 01 · INICIO -->
+    <section class="section hero" id="inicio" data-section data-label="Inicio" data-ink="var(--s1-ink)">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="pill" data-intro><span class="dot" aria-hidden="true"></span>Proyecto de grado · Ingeniería Industrial · UTB 2026</p>
+          <h1 class="hero-title" data-intro>
+            De la <em class="c-situacion">reacción</em> a la <em class="c-solucion">predicción</em>.
+          </h1>
+          <p class="hero-sub" data-intro>Un modelo analítico que pronostica cuántas emergencias de gas natural llegará a atender Surtigas en Montería cada día. Reduce el error del pronóstico diario un <strong>34 %</strong> frente a los métodos de referencia.</p>
+          <div class="hero-ctas" data-intro>
+            <a class="btn btn-ghost" href="#resultados">Ver resultados</a>
+          </div>
+          <p class="hero-tags" data-intro>CRISP-ML(Q) · XGBoost · 50 195 registros (2017–2026)</p>
+        </div>
+
+        <aside class="process-card" data-intro aria-labelledby="tecnicas-titulo">
+          <div class="process-head">
+            <p class="eyebrow" id="tecnicas-titulo">Técnicas comparadas</p>
+            <p class="eyebrow eyebrow-accent">7 técnicas · 1 protocolo</p>
+          </div>
+          <ol class="process-steps">
+            <li style="--c:var(--s1);--ci:var(--s1-ink);--on:var(--on-s1)"><button type="button" data-figure="assets/figuras/matriz_confusion_xgboost.png" data-caption="Matriz de confusión de XGBoost."><span class="num">01</span><span class="name">XGBoost</span></button></li>
+            <li style="--c:var(--s2);--ci:var(--s2-ink);--on:var(--on-s2)"><button type="button" data-figure="assets/figuras/perdida_lstm.png" data-caption="Curva de pérdida durante el entrenamiento de la LSTM."><span class="num">02</span><span class="name">LSTM</span></button></li>
+            <li style="--c:var(--s3);--ci:var(--s3-ink);--on:var(--on-s3)"><button type="button" data-figure="assets/figuras/matriz_confusion_bilstm.png" data-caption="Matriz de confusión de la BiLSTM."><span class="num">03</span><span class="name">BiLSTM</span></button></li>
+            <li style="--c:var(--s4);--ci:var(--s4-ink);--on:var(--on-s4)"><button type="button" data-figure="assets/figuras/comparativa_test.png" data-caption="Comparación de las técnicas sobre el conjunto de prueba."><span class="num">04</span><span class="name">CNN 1D</span></button></li>
+            <li style="--c:var(--s5);--ci:var(--s5-ink);--on:var(--on-s5)"><button type="button" data-figure="assets/figuras/fig04_poisson_pmf.png" data-caption="Función de masa de probabilidad del modelo Poisson."><span class="num">05</span><span class="name">Poisson</span></button></li>
+            <li style="--c:var(--s6);--ci:var(--s6-ink);--on:var(--on-s6)"><button type="button" data-figure="assets/figuras/hist_demanda_vs_fits.png" data-caption="Demanda observada frente a los ajustes de los modelos de conteo."><span class="num">06</span><span class="name">Bin. negativa</span></button></li>
+            <li style="--c:var(--s7);--ci:var(--s7-ink);--on:var(--on-s7)"><button type="button" data-figure="assets/figuras/fig05_zinb_pmf.png" data-caption="Función de masa de probabilidad del modelo ZINB."><span class="num">07</span><span class="name">ZINB</span></button></li>
+          </ol>
+          <p class="process-hint">Toca una técnica para ver su figura.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 02 · PROBLEMA -->
+    <section class="section stage" id="problema" data-section data-label="Problema" data-ink="var(--s5-ink)" data-choreo style="--c:var(--s5);--ci:var(--s5-ink);--on:var(--on-s5)">
+      <span class="draw-rule" data-draw-rule aria-hidden="true"></span>
+      <span class="draw-tick tl" data-draw-tick aria-hidden="true"></span>
+      <span class="draw-tick tr" data-draw-tick aria-hidden="true"></span>
+      <div class="wrap stage-grid">
+        <header class="stage-head">
+          <p class="eyebrow section-eyebrow" data-draw-eyebrow><span class="idx">01</span> / El problema</p>
+          <span class="stage-num" aria-hidden="true" data-reveal>01</span>
+          <h2 class="stage-title" data-reveal>Despacho reactivo</h2>
+          <p class="stage-lead" data-reveal>Surtigas atiende las emergencias de su red de gas solo después del reporte del usuario.</p>
+          <ol class="stage-dots" aria-hidden="true" data-reveal><li class="on"></li><li></li><li></li><li></li><li></li><li></li><li></li></ol>
+        </header>
+        <div class="stage-body" data-reveal>
+          <p>Las cuadrillas se despachan cuando el incidente ya ocurrió. Entre 2017 y 2026 eso significó <strong>50 195 emergencias</strong> atendidas sin saber cuántas llegarían cada día.</p>
+          <p>La analítica de redes de gas venía concentrada en la detección física de fugas. La pregunta de planificación —cuántas emergencias llegarán mañana al centro de control— no tenía respuesta para una ciudad intermedia colombiana.</p>
+          <figure class="paper-figure">
+            <img src="assets/figuras/eda_serie_diaria.png" alt="Serie diaria de emergencias de gas registradas en Montería entre 2017 y 2026." loading="lazy" width="1031" height="876">
+            <figcaption>Demanda diaria de emergencias registrada en Montería, 2017–2026.</figcaption>
+          </figure>
+          <ul class="chips" aria-label="Claves del problema"><li>Despacho reactivo</li><li>50 195 registros</li><li>2017–2026</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 · PREGUNTA -->
+    <section class="section stage" id="pregunta" data-section data-label="Pregunta" data-ink="var(--s1-ink)" data-choreo style="--c:var(--s1);--ci:var(--s1-ink);--on:var(--on-s1)">
+      <span class="draw-rule" data-draw-rule aria-hidden="true"></span>
+      <span class="draw-tick tl" data-draw-tick aria-hidden="true"></span>
+      <span class="draw-tick tr" data-draw-tick aria-hidden="true"></span>
+      <div class="wrap stage-grid">
+        <header class="stage-head">
+          <p class="eyebrow section-eyebrow" data-draw-eyebrow><span class="idx">02</span> / La pregunta</p>
+          <span class="stage-num" aria-hidden="true" data-reveal>02</span>
+          <h2 class="stage-title" data-reveal>La pregunta de investigación</h2>
+          <p class="stage-lead" data-reveal>¿Reduce un modelo predictivo el error del pronóstico diario frente a los métodos de referencia?</p>
+          <ol class="stage-dots" aria-hidden="true" data-reveal><li class="done"></li><li class="on"></li><li></li><li></li><li></li><li></li><li></li></ol>
+        </header>
+        <div class="stage-body" data-reveal>
+          <p>El trabajo siguió <strong>CRISP-ML(Q)</strong>, con la gestión de procesos de negocio como marco transversal, y comparó siete técnicas bajo un protocolo temporal sin fugas de información.</p>
+          <p>La técnica y la ventana de entrada se eligieron con un diseño factorial 4×5 con tres réplicas sobre el bloque de validación. El conjunto de prueba se reservó para una única evaluación final.</p>
+          <blockquote class="stage-quote">¿Cuántas emergencias llegarán cada día al centro de control?</blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 · MÉTODO -->
+    <section class="section stage" id="metodo" data-section data-label="Método" data-ink="var(--s6-ink)" data-choreo style="--c:var(--s6);--ci:var(--s6-ink);--on:var(--on-s6)">
+      <span class="draw-rule" data-draw-rule aria-hidden="true"></span>
+      <span class="draw-tick tl" data-draw-tick aria-hidden="true"></span>
+      <span class="draw-tick tr" data-draw-tick aria-hidden="true"></span>
+      <div class="wrap stage-grid">
+        <header class="stage-head">
+          <p class="eyebrow section-eyebrow" data-draw-eyebrow><span class="idx">03</span> / Método</p>
+          <span class="stage-num" aria-hidden="true" data-reveal>03</span>
+          <h2 class="stage-title" data-reveal>Método</h2>
+          <p class="stage-lead" data-reveal>Siete técnicas y un protocolo temporal sin fugas.</p>
+          <ol class="stage-dots" aria-hidden="true" data-reveal><li class="done"></li><li class="done"></li><li class="on"></li><li></li><li></li><li></li><li></li></ol>
+        </header>
+        <div class="stage-body" data-reveal>
+          <div class="flow" aria-label="Recorrido del método">
+            <button class="flow-step" type="button" data-figure="assets/figuras/fig02_flujo_datos.png" data-caption="Flujo de datos del proyecto: de la fuente a los conjuntos de entrenamiento y prueba.">
+              <span>Datos</span><strong>50 195 registros de emergencias (2017–2026)</strong>
+              <svg class="ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
+            </button>
+            <button class="flow-step" type="button" data-figure="assets/figuras/fig03_protocolo.png" data-caption="Diseño y protocolo: partición temporal y bloques de validación.">
+              <span>Diseño</span><strong>Factorial 4×5×3 sobre el bloque de validación</strong>
+              <svg class="ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
+            </button>
+            <button class="flow-step" type="button" data-figure="assets/figuras/doe_02_prueba.png" data-caption="Evaluación: el conjunto de prueba se consulta una sola vez.">
+              <span>Evaluación</span><strong>Test consultado una sola vez</strong>
+              <svg class="ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
+            </button>
+          </div>
+          <p>Se entrenaron cuatro técnicas de aprendizaje automático (XGBoost, LSTM, BiLSTM y una red convolucional unidimensional) y tres modelos de conteo (Poisson, binomial negativa y su versión inflada en ceros). Minimizar las fugas de información fue la regla del protocolo.</p>
+          <p class="flow-hint">Toca un bloque para ver su figura.</p>
+          <ul class="chips" aria-label="Claves del método"><li>CRISP-ML(Q)</li><li>Diseño factorial 4×5×3</li><li>Sin fugas</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · RESULTADOS -->
+    <section class="section stage" id="resultados" data-section data-label="Resultados" data-ink="var(--s3-ink)" data-choreo style="--c:var(--s3);--ci:var(--s3-ink);--on:var(--on-s3)">
+      <span class="draw-rule" data-draw-rule aria-hidden="true"></span>
+      <span class="draw-tick tl" data-draw-tick aria-hidden="true"></span>
+      <span class="draw-tick tr" data-draw-tick aria-hidden="true"></span>
+      <div class="wrap stage-grid">
+        <header class="stage-head">
+          <p class="eyebrow section-eyebrow" data-draw-eyebrow><span class="idx">04</span> / Resultados</p>
+          <span class="stage-num" aria-hidden="true" data-reveal>04</span>
+          <h2 class="stage-title" data-reveal>Resultados</h2>
+          <p class="stage-lead" data-reveal>XGBoost con ventana de 40 días fue el campeón.</p>
+          <ol class="stage-dots" aria-hidden="true" data-reveal><li class="done"></li><li class="done"></li><li class="done"></li><li class="on"></li><li></li><li></li><li></li></ol>
+        </header>
+        <div class="stage-body" data-reveal>
+          <ul class="stats" aria-label="Cifras principales">
+            <li class="stat"><b>4,22</b><span>MAE de prueba, emergencias por día</span></li>
+            <li class="stat"><b>−34 %</b><span>de error frente a la mejor referencia</span></li>
+            <li class="stat"><b>59 %</b><span>de la varianza del error la explica la técnica</span></li>
+          </ul>
+          <p>En el año de prueba el error absoluto medio fue de <strong>4,22 emergencias por día</strong>, un 34 % menor que el mejor método de referencia (6,40). XGBoost fue significativamente mejor que los modelos de conteo y que las referencias, y sin diferencia significativa frente a las redes neuronales.</p>
+          <p>La ZINB aporta la probabilidad de días de alta demanda y la red bayesiana explica el nivel: los festivos y los fines de semana concentran los días de baja demanda. El tiempo de respuesta de las emergencias no controladas se predice con un error de 0,15 h.</p>
+          <figure class="paper-figure">
+            <img src="assets/figuras/fig15_mae_entrenamiento_prueba.png" alt="Comparación del error absoluto medio de cada técnica en entrenamiento y prueba." loading="lazy" width="989" height="958">
+            <figcaption>Error absoluto medio por técnica en entrenamiento y prueba.</figcaption>
+          </figure>
+          <figure class="paper-figure">
+            <img src="assets/figuras/fig16_matrices_confusion.png" alt="Matrices de confusión por niveles de demanda y por tiempos de respuesta." loading="lazy" width="1074" height="631">
+            <figcaption>Matrices de confusión: niveles de demanda y tiempos de respuesta.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 · IMPACTO -->
+    <section class="section stage" id="impacto" data-section data-label="Impacto" data-ink="var(--s4-ink)" data-choreo style="--c:var(--s4);--ci:var(--s4-ink);--on:var(--on-s4)">
+      <span class="draw-rule" data-draw-rule aria-hidden="true"></span>
+      <span class="draw-tick tl" data-draw-tick aria-hidden="true"></span>
+      <span class="draw-tick tr" data-draw-tick aria-hidden="true"></span>
+      <div class="wrap stage-grid">
+        <header class="stage-head">
+          <p class="eyebrow section-eyebrow" data-draw-eyebrow><span class="idx">05</span> / Impacto</p>
+          <span class="stage-num" aria-hidden="true" data-reveal>05</span>
+          <h2 class="stage-title" data-reveal>Impacto operativo y financiero</h2>
+          <p class="stage-lead" data-reveal>El pronóstico se traduce en horas de cuadrilla y en dinero.</p>
+          <ol class="stage-dots" aria-hidden="true" data-reveal><li class="done"></li><li class="done"></li><li class="done"></li><li class="done"></li><li class="on"></li><li></li><li></li></ol>
+        </header>
+        <div class="stage-body" data-reveal>
+          <ul class="stats" aria-label="Cifras de impacto">
+            <li class="stat"><b>1 468 h</b><span>menos de dotación mal dimensionada por año</span></li>
+            <li class="stat"><b>24 %</b><span>menos horas en déficit repartiendo por sector</span></li>
+            <li class="stat"><b>3,2 %</b><span>probabilidad de multa a partir de la cual conviene la reserva</span></li>
+          </ul>
+          <p>Traducida a tiempo de cuadrilla, la mejora equivale a unas <strong>1 468 horas anuales</strong> menos de dotación mal dimensionada. En el escenario simulado, repartir las cuadrillas entre sectores según la probabilidad de cada uno reduce en 24 % las horas en déficit con la misma dotación.</p>
+          <p>El punto de equilibrio entre déficit y horas ociosas es de cuatro cuadrillas por día. Ajustar la dotación al pronóstico cuesta menos que fijar ese número y deja menos déficit sin cubrir.</p>
+          <p>Con la valoración regulatoria vigente, la cuadrilla de reserva protege más el cumplimiento pero no es rentable: solo conviene si la probabilidad anual de una multa máxima supera el 3,2 %.</p>
+          <div class="fig-grid">
+            <button class="fig-btn" type="button" data-figure="assets/figuras/v30_marginal.png" data-caption="Horas mal dimensionadas y productividad marginal de la cuadrilla.">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
+              <span>Horas mal dimensionadas</span>
+            </button>
+            <button class="fig-btn" type="button" data-figure="assets/figuras/v4_escenarios_total_y_diario.png" data-caption="Escenario de asignación de cuadrillas por sector: total y diario.">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
+              <span>Escenario por sector</span>
+            </button>
+            <button class="fig-btn" type="button" data-figure="assets/figuras/v30_equilibrio.png" data-caption="Equilibrio entre déficit y horas ociosas según el número de cuadrillas.">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
+              <span>Punto de equilibrio</span>
+            </button>
+            <button class="fig-btn" type="button" data-figure="assets/figuras/v30_flujo_caja.png" data-caption="Flujo de caja y rentabilidad de la cuadrilla de reserva.">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
+              <span>Flujo de caja y rentabilidad</span>
+            </button>
+            <button class="fig-btn" type="button" data-figure="assets/figuras/v31_incumplimiento.png" data-caption="Costo por incumplimiento y umbral de probabilidad de multa.">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
+              <span>Costo por incumplimiento</span>
+            </button>
+          </div>
+          <p class="flow-hint">Toca un bloque para ver su figura.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 · EQUIPO -->
+    <section class="section" id="equipo" data-section data-label="Equipo" data-ink="var(--s2-ink)" data-choreo style="--c:var(--s2);--ci:var(--s2-ink);--on:var(--on-s2)">
+      <span class="draw-rule" data-draw-rule aria-hidden="true"></span>
+      <span class="draw-tick tl" data-draw-tick aria-hidden="true"></span>
+      <span class="draw-tick tr" data-draw-tick aria-hidden="true"></span>
+      <div class="wrap">
+        <p class="eyebrow section-eyebrow" data-draw-eyebrow><span class="idx">06</span> / Equipo</p>
+        <h2 class="section-title" data-reveal>Equipo</h2>
+        <p class="section-lead" data-reveal>Cuatro estudiantes de Ingeniería Industrial de la Universidad Tecnológica de Bolívar.</p>
+        <div class="badges" data-reveal-group>
+          <article class="badge" data-reveal style="--c:var(--s1);--ci:var(--s1-ink)">
+            <div class="badge-icon" aria-hidden="true">GD</div>
+            <div>
+              <p class="badge-kicker">Industrial + Ciencia de Datos</p>
+              <h3 class="badge-title">Germán De Armas</h3>
+              <p class="badge-text"><strong>Científico de datos.</strong> Modelado predictivo, diseño de la comparación de técnicas e integración del sistema.</p>
+              <p class="badge-mail"><a href="mailto:gdearmas@utb.edu.co">gdearmas@utb.edu.co</a></p>
+            </div>
+          </article>
+          <article class="badge" data-reveal style="--c:var(--s2);--ci:var(--s2-ink)">
+            <div class="badge-icon" aria-hidden="true">AV</div>
+            <div>
+              <p class="badge-kicker">Industrial + Ciencia de Datos</p>
+              <h3 class="badge-title">Ángel Vega</h3>
+              <p class="badge-text"><strong>Científico de datos.</strong> Ingeniería de datos, evaluación de modelos y comparación de técnicas.</p>
+              <p class="badge-mail"><a href="mailto:anvega@utb.edu.co">anvega@utb.edu.co</a></p>
+            </div>
+          </article>
+          <article class="badge" data-reveal style="--c:var(--s4);--ci:var(--s4-ink)">
+            <div class="badge-icon" aria-hidden="true">SD</div>
+            <div>
+              <p class="badge-kicker">Industrial + Finanzas</p>
+              <h3 class="badge-title">Sebastián Delgado</h3>
+              <p class="badge-text"><strong>Evaluación financiera.</strong> Análisis costo-beneficio, VPN, TIR y escenario de asignación por sector.</p>
+              <p class="badge-mail"><a href="mailto:delgados@utb.edu.co">delgados@utb.edu.co</a></p>
+            </div>
+          </article>
+          <article class="badge" data-reveal style="--c:var(--s6);--ci:var(--s6-ink)">
+            <div class="badge-icon" aria-hidden="true">VR</div>
+            <div>
+              <p class="badge-kicker">Ingeniería Industrial</p>
+              <h3 class="badge-title">Victoria Ripoll</h3>
+              <p class="badge-text"><strong>Ingeniería de procesos.</strong> Comprensión del negocio y de los datos, gestión de procesos de negocio y contexto normativo.</p>
+              <p class="badge-mail"><a href="mailto:vripoll@utb.edu.co">vripoll@utb.edu.co</a></p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 · CIERRE -->
+    <section class="section closing" id="cierre" data-section data-label="Cierre" data-ink="var(--s1-ink)" data-choreo>
+      <span class="draw-rule" data-draw-rule aria-hidden="true"></span>
+      <span class="draw-tick tl" data-draw-tick aria-hidden="true"></span>
+      <span class="draw-tick tr" data-draw-tick aria-hidden="true"></span>
+      <div class="wrap closing-inner">
+        <p class="eyebrow section-eyebrow" data-draw-eyebrow><span class="idx">07</span> / Descarga</p>
+        <h2 class="closing-title" data-reveal>Explora el proyecto completo</h2>
+        <p class="section-lead" data-reveal>Descarga el paper completo del proyecto.</p>
+        <div class="hero-ctas center" data-reveal>
+          <a class="btn btn-gradient" href="assets/paper-v3_15.pdf" download>Descargar el paper (PDF)</a>
+        </div>
+        <div class="social" data-reveal>
+          <p>Sigma Analist</p>
+          <ul>
+            <li><a href="mailto:gdearmas@utb.edu.co">Germán De Armas</a></li>
+            <li><a href="mailto:anvega@utb.edu.co">Ángel Vega</a></li>
+            <li><a href="mailto:delgados@utb.edu.co">Sebastián Delgado</a></li>
+            <li><a href="mailto:vripoll@utb.edu.co">Victoria Ripoll</a></li>
+          </ul>
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="wrap footer-inner">
+          <p>Modelo analítico para la caracterización y predicción de la demanda de emergencias en la red de distribución de gas natural de Montería. Caso de estudio: Surtigas.</p>
+          <p class="footer-meta">Universidad Tecnológica de Bolívar · 2026</p>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <!-- Visor de figuras -->
+  <dialog class="lightbox" id="lightbox" aria-label="Figura ampliada">
+    <button class="lightbox-close icon-btn" type="button" aria-label="Cerrar figura">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <figure>
+      <img id="lightbox-img" alt="">
+      <figcaption id="lightbox-cap"></figcaption>
+    </figure>
+  </dialog>
+
+  <!-- Instrumento de scroll (lo construye js/ruler.js) -->
+  <div class="ruler" id="ruler" aria-hidden="true"></div>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/ScrollTrigger.min.js"></script>
+  <script src="vendor/lenis.min.js"></script>
+  <script src="js/smooth.js"></script>
+  <script src="js/ruler.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
