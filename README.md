@@ -12,15 +12,7 @@ El modelo elegido, XGBoost, se equivocó en promedio 4,22 emergencias por día e
 
 El recorrido sigue el orden del paper: el problema, la pregunta de investigación, el método, los resultados, el impacto operativo y financiero, el equipo y la descarga del documento. Las figuras del paper se presentan como gráficos interactivos, y cada uno permite abrir la figura original.
 
-## Cómo abrirla
 
-Es un sitio estático, sin instalación ni compilación. Basta con abrir `index.html` con doble clic. Para servirla en local:
-
-```bash
-python3 -m http.server 8766
-```
-
-Después se abre `http://127.0.0.1:8766/` en el navegador.
 
 ## Estructura
 
