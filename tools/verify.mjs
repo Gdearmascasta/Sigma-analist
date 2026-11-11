@@ -224,6 +224,21 @@ const a11y = (await evaluate(`(async () => {
   const pdf = !!dl && (location.protocol === 'file:' || await fetch(dl.getAttribute('href'), { method: 'HEAD' }).then(r => r.ok).catch(() => false));
   out.serie = serieDrawn && serie.querySelectorAll('.yr').length === 10 && sTest.includes('17 emergencias') && s2024.includes('Media de 2024: 20,2')
     && /modelo-analitico-y-predictivo\.pdf$/.test(dl.getAttribute('href')) && dl.getAttribute('download') === 'Modelo analítico y predictivo.pdf' && pdf;
+  // Cierre: GitHub y LinkedIn enlazan fuera; Ángel y Victoria abren su tarjeta con correo y teléfono
+  const pills = [...document.querySelectorAll('.social ul a, .social ul button')];
+  const gh = pills.find(x => x.textContent.includes('Germán'));
+  const li = pills.find(x => x.textContent.includes('Sebastián'));
+  let popsOk = true;
+  for (const who of ['Ángel', 'Victoria']) {
+    const b = pills.find(x => x.textContent.includes(who));
+    b.click(); await wait(80);
+    const pop = document.getElementById(b.getAttribute('popovertarget'));
+    popsOk = popsOk && pop.matches(':popover-open') && /^mailto:[^@]+@/.test(pop.querySelector('a[href^="mailto:"]').getAttribute('href')) && !!pop.querySelector('a[href^="tel:+57"]') && !!pop.querySelector('[data-copy]');
+    pop.hidePopover();
+  }
+  out.contacto = gh.getAttribute('href') === 'https://github.com/Gdearmascasta' && gh.target === '_blank'
+    && li.getAttribute('href') === 'https://www.linkedin.com/in/sebastian-henrique-delgado-solano-295512264/' && popsOk
+    && document.querySelectorAll('.badge-contact a[href^="tel:+57"]').length === 4;
   // Impacto: cada pestaña dibuja; el deslizador cambia la conclusión (p₀ = 6 % → la reserva)
   const exp = document.querySelector('[data-explorer]');
   let drawn = 0;
@@ -246,8 +261,8 @@ const a11y = (await evaluate(`(async () => {
   return out;
 })()`)) || {};
 console.log('texto partido:', a11y.split ? 'OK' : 'FALLA', '| caracteres ocultos:', a11y.charsHidden ? 'OK' : 'FALLA', '| copia accesible:', a11y.srText);
-console.log('palabras partidas:', a11y.words, '| índice abre/cierra:', a11y.indexOpen && a11y.indexClosed ? 'OK' : 'FALLA', '| foco del skip:', a11y.skipFocus ? 'OK' : 'FALLA', '| escenario:', a11y.stage ? 'OK' : 'FALLA', '| islas:', a11y.islands ? 'OK' : 'FALLA', '| MAE:', a11y.mae ? 'OK' : 'FALLA', '| explorador:', a11y.explorer ? 'OK' : 'FALLA', '| serie y descarga:', a11y.serie ? 'OK' : 'FALLA');
-if (!a11y.split || !a11y.charsHidden || a11y.srText !== 'De la reacción a la predicción.' || !a11y.indexOpen || !a11y.indexClosed || !a11y.skipFocus || !a11y.islands || !a11y.mae || !a11y.explorer || !a11y.serie || !a11y.stage) problems.push('las comprobaciones de accesibilidad, escenarios, islas, MAE o explorador fallaron');
+console.log('palabras partidas:', a11y.words, '| índice abre/cierra:', a11y.indexOpen && a11y.indexClosed ? 'OK' : 'FALLA', '| foco del skip:', a11y.skipFocus ? 'OK' : 'FALLA', '| escenario:', a11y.stage ? 'OK' : 'FALLA', '| islas:', a11y.islands ? 'OK' : 'FALLA', '| MAE:', a11y.mae ? 'OK' : 'FALLA', '| explorador:', a11y.explorer ? 'OK' : 'FALLA', '| serie y descarga:', a11y.serie ? 'OK' : 'FALLA', '| contacto:', a11y.contacto ? 'OK' : 'FALLA');
+if (!a11y.split || !a11y.charsHidden || a11y.srText !== 'De la reacción a la predicción.' || !a11y.indexOpen || !a11y.indexClosed || !a11y.skipFocus || !a11y.islands || !a11y.mae || !a11y.explorer || !a11y.serie || !a11y.contacto || !a11y.stage) problems.push('las comprobaciones de accesibilidad, escenarios, islas, MAE o explorador fallaron');
 
 // Texto que se queda invisible (revelados que no terminaron) en el viewport actual
 const hidden = await evaluate(`[...document.querySelectorAll('[data-reveal],[data-intro]')].filter(n => { const r = n.getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0 && getComputedStyle(n).opacity === '0'; }).length`);

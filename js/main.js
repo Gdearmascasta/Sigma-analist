@@ -560,6 +560,24 @@
     lightbox.addEventListener('close', () => { img.removeAttribute('src'); img.alt = ''; cap.textContent = ''; });
   }
 
+  // ---------- Copiar correo (tarjetas de contacto del cierre) ----------
+  // Sin cliente de correo configurado, el mailto no hace nada: copiar siempre funciona.
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-copy]');
+    if (!btn) return;
+    const text = btn.getAttribute('data-copy');
+    let ok = false;
+    try { await navigator.clipboard.writeText(text); ok = true; } catch {}
+    if (!ok) {
+      // respaldo: deja el correo seleccionado para copiarlo a mano
+      const span = btn.parentElement.querySelector('span');
+      if (span) { const r = document.createRange(); r.selectNodeContents(span); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); }
+    }
+    const label = btn.textContent;
+    btn.textContent = ok ? 'Copiado' : 'Selecciónalo';
+    setTimeout(() => { btn.textContent = label; }, 1600);
+  });
+
   // ---------- La retícula del hero se pausa cuando el hero sale de pantalla ----------
   const hero = document.getElementById('inicio');
   if (hero && 'IntersectionObserver' in window) {
