@@ -52,7 +52,11 @@ ws.onmessage = (e) => {
     problems.push('log: ' + m.params.entry.text + (m.params.entry.url ? ' ' + m.params.entry.url : ''));
 };
 const cmd = (method, params = {}) => new Promise((r) => { const i = ++id; pending.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
-const evaluate = async (expression) => (await cmd('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true })).result?.value;
+const evaluate = async (expression) => {
+  const r = await cmd('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true });
+  if (r?.exceptionDetails) problems.push('EXCEPCIÓN en la verificación: ' + (r.exceptionDetails.exception?.description || r.exceptionDetails.text));
+  return r?.result?.value;
+};
 const shot = async (name) => {
   const r = await cmd('Page.captureScreenshot', { format: 'png' });
   fs.writeFileSync(path.join(out, name + '.png'), Buffer.from(r.data, 'base64'));
@@ -166,6 +170,84 @@ if (e2) {
   await evaluate('window.__go(0)');
   await sleep(600);
 }
+
+// Accesibilidad y animaciones añadidas (texto partido, índice, foco, cifras, islas, MAE, explorador)
+const a11y = (await evaluate(`(async () => {
+  const wait = (ms) => new Promise(r => setTimeout(r, ms));
+  const h1 = document.querySelector('.hero-title');
+  const sr = h1.querySelector('.sr-only');
+  const chars = [...h1.querySelectorAll('.ch')];
+  const out = {
+    split: chars.length > 0,
+    charsHidden: chars.every(c => c.getAttribute('aria-hidden') === 'true'),
+    srText: sr ? sr.textContent.trim() : null,
+    words: document.querySelectorAll('.word').length,
+  };
+  const btn = document.getElementById('nav-index');
+  const panel = document.getElementById('indice');
+  btn.click(); await wait(120);
+  out.indexOpen = !panel.hidden && btn.getAttribute('aria-expanded') === 'true' && document.activeElement === panel.querySelector('a');
+  window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await wait(120);
+  out.indexClosed = panel.hidden && document.activeElement === btn;
+  const skip = document.querySelector('.skip');
+  skip.focus(); skip.click(); await wait(700);
+  out.skipFocus = document.activeElement === document.getElementById('contenido');
+  // inicio sin figuras; Método: clic fija el panel y saca la isla «Ver más», otro clic la quita
+  out.heroClean = !document.querySelector('.process-card [data-figure]');
+  const fstep = document.querySelectorAll('#metodo .flow-step')[1];
+  const island = document.querySelector('#metodo [data-island]');
+  fstep.click(); await wait(150);
+  const pinnedOk = !island.hidden && /fig03_protocolo/.test(island.getAttribute('data-figure') || '') && fstep.getAttribute('aria-pressed') === 'true';
+  island.click(); await wait(150);
+  const lbOk = document.getElementById('lightbox').open && /fig03_protocolo/.test(document.getElementById('lightbox-img').getAttribute('src') || '');
+  document.getElementById('lightbox').close(); await wait(100);
+  fstep.click(); await wait(150);
+  out.islands = out.heroClean && pinnedOk && lbOk && island.hidden;
+  // Resultados: pestaña Entrenamiento + orden → XGBoost primero (3,52); en Prueba ordenado → LSTM (4,14)
+  const mae = document.querySelector('[data-mae]');
+  mae.querySelector('[data-mode="train"]').click(); mae.querySelector('[data-sort]').click(); await wait(60);
+  const firstTrain = mae.querySelector('.mae-row .mae-name').textContent.trim();
+  mae.querySelector('[data-mode="test"]').click(); await wait(60);
+  const firstTest = mae.querySelector('.mae-row .mae-name').textContent.trim();
+  mae.querySelector('[data-sort]').click();
+  out.mae = mae.dataset.mode === 'test' && firstTrain.startsWith('XGBoost') && firstTest === 'LSTM';
+  // Problema: la serie dibuja, el periodo «Año de prueba» y el año 2024 cambian la vista y su conclusión
+  const serie = document.querySelector('[data-serie]');
+  const serieDrawn = !!serie.querySelector('.chart-svg .ln');
+  serie.querySelector('[data-range="test"]').click(); await wait(40);
+  const sTest = serie.querySelector('[data-serie-insight]').textContent;
+  [...serie.querySelectorAll('.yr')].find(b => b.textContent.includes('2024')).click(); await wait(40);
+  const s2024 = serie.querySelector('[data-serie-insight]').textContent;
+  serie.querySelector('[data-range="all"]').click();
+  const dl = document.querySelector('a[download]');
+  // en file:// Chrome bloquea fetch: ahí basta con el enlace (la existencia se comprueba por http)
+  const pdf = !!dl && (location.protocol === 'file:' || await fetch(dl.getAttribute('href'), { method: 'HEAD' }).then(r => r.ok).catch(() => false));
+  out.serie = serieDrawn && serie.querySelectorAll('.yr').length === 10 && sTest.includes('17 emergencias') && s2024.includes('Media de 2024: 20,2')
+    && /modelo-analitico-y-predictivo\.pdf$/.test(dl.getAttribute('href')) && dl.getAttribute('download') === 'Modelo analítico y predictivo.pdf' && pdf;
+  // Impacto: cada pestaña dibuja; el deslizador cambia la conclusión (p₀ = 6 % → la reserva)
+  const exp = document.querySelector('[data-explorer]');
+  let drawn = 0;
+  for (const t of exp.querySelectorAll('[data-chart]')) { t.click(); await wait(40); if (exp.querySelector('.chart-svg .data').children.length) drawn++; }
+  const range = exp.querySelector('.slider input');
+  range.value = '6'; range.dispatchEvent(new Event('input', { bubbles: true }));
+  const insight6 = exp.querySelector('[data-exp-insight]').textContent;
+  range.value = '1'; range.dispatchEvent(new Event('input', { bubbles: true }));
+  const insight1 = exp.querySelector('[data-exp-insight]').textContent;
+  exp.querySelector('[data-chart="marginal"]').click();
+  out.explorer = drawn === 5 && insight6.includes('la reserva (') && /capacidad por pronóstico/.test(insight1) && !document.querySelector('.fig-preview');
+  const lis = [...document.querySelectorAll('.process-steps li')];
+  lis[3].dispatchEvent(new PointerEvent('pointerenter')); await wait(150);
+  const shown = [...document.querySelectorAll('.process-card [data-tech-panel]')].filter(p => !p.hidden);
+  out.stage = shown.length === 1 && lis[3].classList.contains('is-active') && shown[0].querySelector('.tech-name').textContent === lis[3].querySelector('.name').textContent;
+  const steps = [...document.querySelectorAll('#metodo .flow-step')];
+  steps[2].dispatchEvent(new PointerEvent('pointerenter')); await wait(150);
+  const mshown = [...document.querySelectorAll('#metodo [data-tech-panel]')].filter(p => !p.hidden);
+  out.stage = out.stage && mshown.length === 1 && steps[2].classList.contains('is-current') && mshown[0].querySelector('.tech-name').textContent === steps[2].querySelector('span').textContent;
+  return out;
+})()`)) || {};
+console.log('texto partido:', a11y.split ? 'OK' : 'FALLA', '| caracteres ocultos:', a11y.charsHidden ? 'OK' : 'FALLA', '| copia accesible:', a11y.srText);
+console.log('palabras partidas:', a11y.words, '| índice abre/cierra:', a11y.indexOpen && a11y.indexClosed ? 'OK' : 'FALLA', '| foco del skip:', a11y.skipFocus ? 'OK' : 'FALLA', '| escenario:', a11y.stage ? 'OK' : 'FALLA', '| islas:', a11y.islands ? 'OK' : 'FALLA', '| MAE:', a11y.mae ? 'OK' : 'FALLA', '| explorador:', a11y.explorer ? 'OK' : 'FALLA', '| serie y descarga:', a11y.serie ? 'OK' : 'FALLA');
+if (!a11y.split || !a11y.charsHidden || a11y.srText !== 'De la reacción a la predicción.' || !a11y.indexOpen || !a11y.indexClosed || !a11y.skipFocus || !a11y.islands || !a11y.mae || !a11y.explorer || !a11y.serie || !a11y.stage) problems.push('las comprobaciones de accesibilidad, escenarios, islas, MAE o explorador fallaron');
 
 // Texto que se queda invisible (revelados que no terminaron) en el viewport actual
 const hidden = await evaluate(`[...document.querySelectorAll('[data-reveal],[data-intro]')].filter(n => { const r = n.getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0 && getComputedStyle(n).opacity === '0'; }).length`);

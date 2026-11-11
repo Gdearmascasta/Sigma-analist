@@ -1,0 +1,36 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=block">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1200px;height:630px;overflow:hidden;background:#fefaf3;color:#190f0a;
+ font:400 20px/1.5 "Inter",system-ui,sans-serif;position:relative}
+.grid{position:absolute;inset:-56px;background-image:linear-gradient(#e5dcd4 1px,transparent 1px),linear-gradient(90deg,#e5dcd4 1px,transparent 1px);
+ background-size:56px 56px;opacity:.55;mask-image:radial-gradient(ellipse at 20% 30%,#000,transparent 72%)}
+.glow{position:absolute;inset:0;background:radial-gradient(40% 40% at 92% 0%,#f9414466,transparent 70%),radial-gradient(34% 34% at 80% 14%,#f3821d55,transparent 70%),radial-gradient(30% 30% at 100% 40%,#9e45b130,transparent 70%);filter:blur(8px)}
+.wrap{position:relative;z-index:1;height:100%;padding:64px 72px;display:flex;flex-direction:column;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:14px;font:600 26px/1 "Fraunces",Georgia,serif}
+.mark{display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:#291508;color:#fefaf3;font:700 26px/1 "Fraunces",Georgia,serif}
+h1{font:700 82px/0.98 "Fraunces",Georgia,serif;letter-spacing:-.03em;max-width:900px}
+h1 em{font-style:normal;color:#f94144}
+h1 b{font-weight:700;color:#2f9a3c}
+.sub{margin-top:22px;max-width:640px;color:#695b50;font-size:21px}
+.stats{display:flex;gap:16px;margin-top:30px}
+.stat{padding:14px 20px;border-radius:14px;background:#ffffff;border:1px solid #e5dcd4}
+.stat b{display:block;font:700 34px/1 "Fraunces",Georgia,serif}
+.stat span{display:block;margin-top:6px;font-size:13.5px;color:#695b50}
+.foot{display:flex;justify-content:space-between;align-items:flex-end;font-size:15px;color:#75665a;border-top:1px solid #e5dcd4;padding-top:18px}
+</style></head><body>
+<div class="glow"></div><div class="grid"></div>
+<div class="wrap">
+<div class="brand"><span class="mark">Σ</span>Sigma Analist</div>
+<div>
+  <h1>De la <em>reacción</em> a la <b>predicción</b>.</h1>
+  <p class="sub">Modelo analítico para la demanda diaria de emergencias de gas natural en Montería. Caso de estudio: Surtigas.</p>
+  <div class="stats">
+    <div class="stat"><b>4,22</b><span>MAE de prueba, emergencias por día</span></div>
+    <div class="stat"><b>−34 %</b><span>de error frente a la mejor referencia</span></div>
+    <div class="stat"><b>59 %</b><span>de la varianza del error explicada</span></div>
+  </div>
+</div>
+<div class="foot"><span>Universidad Tecnológica de Bolívar · Ingeniería Industrial</span><span>2026</span></div>
+</div></body></html>

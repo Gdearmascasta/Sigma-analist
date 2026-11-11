@@ -282,10 +282,7 @@
 
     let cur = 0;
     for (const s of S.sections) if (paintSection(s, sy)) cur = s.i;
-    if (cur !== S.current) {
-      S.current = cur;
-      document.dispatchEvent(new CustomEvent('ruler:section', { detail: { index: cur, label: S.sections[cur].node.dataset.label } }));
-    }
+    S.current = cur;
 
     // aguja y lectura
     const ny = railYForScroll(sy);

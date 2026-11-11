@@ -47,7 +47,16 @@ const pairs = [
   ['número sobre círculo etapa 6', '#ffffff', '#8a48cc', 4.5],
   ['número sobre círculo etapa 7', '#190f0a', '#00acc1', 4.5],
   ['texto en botón de figura', '#190f0a', card, 4.5],
+  ['índice: enlace sobre fondo suave', '#695b50', '#f7efe4', 4.5],
+  ['vista previa: leyenda', '#695b50', card, 4.5],
   ['leyenda del visor de figuras', '#f9f4ee', '#190f0a', 4.5],
+  ['escenario de técnicas: nombre XGBoost', '#1263c4', card, 4.5],
+  ['escenario de técnicas: nombre LSTM', '#007a64', card, 4.5],
+  ['escenario de técnicas: nombre BiLSTM', '#2c7a33', card, 4.5],
+  ['escenario de técnicas: nombre CNN 1D', '#8a6a00', card, 4.5],
+  ['escenario de técnicas: nombre Poisson', '#c4262a', card, 4.5],
+  ['escenario de técnicas: nombre Bin. negativa', '#7a3bb8', card, 4.5],
+  ['escenario de técnicas: nombre ZINB', '#00788a', card, 4.5],
 ];
 
 let fail = 0;

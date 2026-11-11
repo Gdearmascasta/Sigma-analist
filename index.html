@@ -7,10 +7,20 @@
   <meta name="description" content="Modelo analítico para la caracterización y predicción de la demanda de emergencias en la red de distribución de gas natural de Montería. Caso de estudio: Surtigas.">
   <meta name="author" content="Sigma Analist">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Sigma Analist">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:url" content="https://gdearmascasta.github.io/Sigma-analist/">
   <meta property="og:title" content="Sigma Analist — Predicción de emergencias de gas en Montería">
-  <meta property="og:description" content="Un modelo que pronostica la demanda diaria de emergencias de gas y reduce el error del pronóstico un 34 % frente a los métodos de referencia.">
-  <meta property="og:image" content="assets/figuras/fig15_mae_entrenamiento_prueba.png">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:description" content="Este proyecto anticipa cuántas emergencias de gas llegarán mañana al centro de control de Surtigas en Montería, con un 34 % menos de error que los métodos actuales.">
+  <meta property="og:image" content="https://gdearmascasta.github.io/Sigma-analist/assets/og-card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sigma Analist: de la reacción a la predicción. Un MAE de 4,22 emergencias por día, un 34 % menos de error.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sigma Analist — Predicción de emergencias de gas en Montería">
+  <meta name="twitter:description" content="Este proyecto anticipa cuántas emergencias de gas llegarán mañana al centro de control de Surtigas en Montería, con un 34 % menos de error que los métodos actuales.">
+  <meta name="twitter:image" content="https://gdearmascasta.github.io/Sigma-analist/assets/og-card.png">
   <meta name="theme-color" content="#fefaf3">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,11 +44,25 @@
       <a href="#equipo">Equipo</a>
     </nav>
     <div class="nav-actions">
-      <button class="icon-btn nav-burger" type="button" id="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <button class="icon-btn nav-index" type="button" id="nav-index" aria-label="Índice de secciones" aria-expanded="false" aria-controls="indice">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>
       </button>
     </div>
   </header>
+
+  <!-- Índice completo: mismo menú en todos los tamaños y alcanzable por teclado -->
+  <nav class="index-panel" id="indice" aria-label="Índice de secciones" hidden>
+    <ol>
+      <li><a href="#inicio" style="--ci:var(--s1-ink)">Inicio</a></li>
+      <li><a href="#problema" style="--ci:var(--s5-ink)">Problema</a></li>
+      <li><a href="#pregunta" style="--ci:var(--s1-ink)">Pregunta</a></li>
+      <li><a href="#metodo" style="--ci:var(--s6-ink)">Método</a></li>
+      <li><a href="#resultados" style="--ci:var(--s3-ink)">Resultados</a></li>
+      <li><a href="#impacto" style="--ci:var(--s4-ink)">Impacto</a></li>
+      <li><a href="#equipo" style="--ci:var(--s2-ink)">Equipo</a></li>
+      <li><a href="#cierre" style="--ci:var(--s1-ink)">Cierre</a></li>
+    </ol>
+  </nav>
 
   <!-- Indicador compacto para pantallas donde no cabe la regla lateral -->
   <div class="mini-ruler" id="mini-ruler" aria-hidden="true">
@@ -54,14 +78,14 @@
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <p class="pill" data-intro><span class="dot" aria-hidden="true"></span>Proyecto de grado · Ingeniería Industrial · UTB 2026</p>
-          <h1 class="hero-title" data-intro>
-            De la <em class="c-situacion">reacción</em> a la <em class="c-solucion">predicción</em>.
+          <h1 class="hero-title" data-intro data-split>
+            De la <em class="c-situacion">reacción</em> a la <span class="nowrap"><em class="c-solucion">predicción</em><span class="hang">.</span></span>
           </h1>
-          <p class="hero-sub" data-intro>Un modelo analítico que pronostica cuántas emergencias de gas natural llegará a atender Surtigas en Montería cada día. Reduce el error del pronóstico diario un <strong>34 %</strong> frente a los métodos de referencia.</p>
+          <p class="hero-sub" data-intro>Este proyecto anticipa cuántas emergencias de gas llegarán mañana al centro de control de Surtigas en Montería, con un <strong>34 % menos de error</strong> que los métodos actuales. Así las cuadrillas se programan antes de que entre la llamada, no después.</p>
           <div class="hero-ctas" data-intro>
             <a class="btn btn-ghost" href="#resultados">Ver resultados</a>
           </div>
-          <p class="hero-tags" data-intro>CRISP-ML(Q) · XGBoost · 50 195 registros (2017–2026)</p>
+          <p class="hero-tags" data-intro>50 195 emergencias analizadas · 7 técnicas comparadas · pronóstico a un día</p>
         </div>
 
         <aside class="process-card" data-intro aria-labelledby="tecnicas-titulo">
@@ -70,15 +94,46 @@
             <p class="eyebrow eyebrow-accent">7 técnicas · 1 protocolo</p>
           </div>
           <ol class="process-steps">
-            <li style="--c:var(--s1);--ci:var(--s1-ink);--on:var(--on-s1)"><button type="button" data-figure="assets/figuras/matriz_confusion_xgboost.png" data-caption="Matriz de confusión de XGBoost."><span class="num">01</span><span class="name">XGBoost</span></button></li>
-            <li style="--c:var(--s2);--ci:var(--s2-ink);--on:var(--on-s2)"><button type="button" data-figure="assets/figuras/perdida_lstm.png" data-caption="Curva de pérdida durante el entrenamiento de la LSTM."><span class="num">02</span><span class="name">LSTM</span></button></li>
-            <li style="--c:var(--s3);--ci:var(--s3-ink);--on:var(--on-s3)"><button type="button" data-figure="assets/figuras/matriz_confusion_bilstm.png" data-caption="Matriz de confusión de la BiLSTM."><span class="num">03</span><span class="name">BiLSTM</span></button></li>
-            <li style="--c:var(--s4);--ci:var(--s4-ink);--on:var(--on-s4)"><button type="button" data-figure="assets/figuras/comparativa_test.png" data-caption="Comparación de las técnicas sobre el conjunto de prueba."><span class="num">04</span><span class="name">CNN 1D</span></button></li>
-            <li style="--c:var(--s5);--ci:var(--s5-ink);--on:var(--on-s5)"><button type="button" data-figure="assets/figuras/fig04_poisson_pmf.png" data-caption="Función de masa de probabilidad del modelo Poisson."><span class="num">05</span><span class="name">Poisson</span></button></li>
-            <li style="--c:var(--s6);--ci:var(--s6-ink);--on:var(--on-s6)"><button type="button" data-figure="assets/figuras/hist_demanda_vs_fits.png" data-caption="Demanda observada frente a los ajustes de los modelos de conteo."><span class="num">06</span><span class="name">Bin. negativa</span></button></li>
-            <li style="--c:var(--s7);--ci:var(--s7-ink);--on:var(--on-s7)"><button type="button" data-figure="assets/figuras/fig05_zinb_pmf.png" data-caption="Función de masa de probabilidad del modelo ZINB."><span class="num">07</span><span class="name">ZINB</span></button></li>
+            <li style="--c:var(--s1);--ci:var(--s1-ink);--on:var(--on-s1)"><button type="button" aria-pressed="false"><span class="num">01</span><span class="name">XGBoost</span></button></li>
+            <li style="--c:var(--s2);--ci:var(--s2-ink);--on:var(--on-s2)"><button type="button" aria-pressed="false"><span class="num">02</span><span class="name">LSTM</span></button></li>
+            <li style="--c:var(--s3);--ci:var(--s3-ink);--on:var(--on-s3)"><button type="button" aria-pressed="false"><span class="num">03</span><span class="name">BiLSTM</span></button></li>
+            <li style="--c:var(--s4);--ci:var(--s4-ink);--on:var(--on-s4)"><button type="button" aria-pressed="false"><span class="num">04</span><span class="name">CNN 1D</span></button></li>
+            <li style="--c:var(--s5);--ci:var(--s5-ink);--on:var(--on-s5)"><button type="button" aria-pressed="false"><span class="num">05</span><span class="name">Poisson</span></button></li>
+            <li style="--c:var(--s6);--ci:var(--s6-ink);--on:var(--on-s6)"><button type="button" aria-pressed="false"><span class="num">06</span><span class="name">Bin. negativa</span></button></li>
+            <li style="--c:var(--s7);--ci:var(--s7-ink);--on:var(--on-s7)"><button type="button" aria-pressed="false"><span class="num">07</span><span class="name">ZINB</span></button></li>
           </ol>
-          <p class="process-hint">Toca una técnica para ver su figura.</p>
+          <div class="tech-stage" data-tech-stage data-items=".process-steps li" data-current="is-active">
+            <div class="tech-panel" data-tech-panel style="--c:var(--s1);--ci:var(--s1-ink)">
+              <div class="tech-art" aria-hidden="true"><svg viewBox="0 0 240 104" focusable="false"><path class="d" pathLength="1" d="M42 22L27 46M42 22L57 46M27 54L20 74M27 54L34 74M57 54L50 74M57 54L64 74"/><circle class="p" cx="42" cy="20" r="6"/><circle class="p" cx="27" cy="50" r="4.5"/><circle class="p" cx="57" cy="50" r="4.5"/><rect class="b" x="16" y="84" width="8" height="10" rx="2"/><rect class="b" x="30" y="76" width="8" height="18" rx="2"/><rect class="b" x="46" y="87" width="8" height="7" rx="2"/><rect class="b" x="60" y="80" width="8" height="14" rx="2"/><path class="d" pathLength="1" d="M122 22L107 46M122 22L137 46M107 54L100 74M107 54L114 74M137 54L130 74M137 54L144 74"/><circle class="p" cx="122" cy="20" r="6"/><circle class="p" cx="107" cy="50" r="4.5"/><circle class="p" cx="137" cy="50" r="4.5"/><rect class="b" x="96" y="78" width="8" height="16" rx="2"/><rect class="b" x="110" y="88" width="8" height="6" rx="2"/><rect class="b" x="126" y="82" width="8" height="12" rx="2"/><rect class="b" x="140" y="85" width="8" height="9" rx="2"/><path class="d" pathLength="1" d="M202 22L187 46M202 22L217 46M187 54L180 74M187 54L194 74M217 54L210 74M217 54L224 74"/><circle class="p" cx="202" cy="20" r="6"/><circle class="p" cx="187" cy="50" r="4.5"/><circle class="p" cx="217" cy="50" r="4.5"/><rect class="b" x="176" y="89" width="8" height="5" rx="2"/><rect class="b" x="190" y="79" width="8" height="15" rx="2"/><rect class="b" x="206" y="83" width="8" height="11" rx="2"/><rect class="b" x="220" y="86" width="8" height="8" rx="2"/><path class="d" pathLength="1" d="M78 50h8M82 46v8M158 50h8M162 46v8"/></svg></div>
+              <div class="tech-copy"><p class="tech-name">XGBoost</p><p class="tech-desc">Cientos de árboles de decisión en cadena: cada uno corrige el error que dejó el anterior.</p></div>
+            </div>
+            <div class="tech-panel" data-tech-panel style="--c:var(--s2);--ci:var(--s2-ink)" hidden>
+              <div class="tech-art" aria-hidden="true"><svg viewBox="0 0 240 104" focusable="false"><path class="d" pathLength="1" d="M8 22H232"/><rect class="k" x="16" y="44" width="40" height="30" rx="8"/><path class="d" pathLength="1" d="M36 96V78M36 44V26"/><circle class="p" cx="36" cy="22" r="3.5"/><rect class="k" x="72" y="44" width="40" height="30" rx="8"/><path class="d" pathLength="1" d="M92 96V78M92 44V26"/><circle class="p" cx="92" cy="22" r="3.5"/><rect class="k" x="128" y="44" width="40" height="30" rx="8"/><path class="d" pathLength="1" d="M148 96V78M148 44V26"/><circle class="p" cx="148" cy="22" r="3.5"/><rect class="k" x="184" y="44" width="40" height="30" rx="8"/><path class="d" pathLength="1" d="M204 96V78M204 44V26"/><circle class="p" cx="204" cy="22" r="3.5"/><path class="d" pathLength="1" d="M56 59H70M112 59H126M168 59H182M224 59H234"/></svg></div>
+              <div class="tech-copy"><p class="tech-name">LSTM</p><p class="tech-desc">Red recurrente con memoria: lee la serie día a día y conserva lo que sirve para predecir.</p></div>
+            </div>
+            <div class="tech-panel" data-tech-panel style="--c:var(--s3);--ci:var(--s3-ink)" hidden>
+              <div class="tech-art" aria-hidden="true"><svg viewBox="0 0 240 104" focusable="false"><rect class="k" x="16" y="14" width="40" height="24" rx="7"/><rect class="k alt" x="16" y="52" width="40" height="24" rx="7"/><path class="d" pathLength="1" d="M36 38V52M36 76V90"/><circle class="p" cx="36" cy="94" r="4"/><rect class="k" x="72" y="14" width="40" height="24" rx="7"/><rect class="k alt" x="72" y="52" width="40" height="24" rx="7"/><path class="d" pathLength="1" d="M92 38V52M92 76V90"/><circle class="p" cx="92" cy="94" r="4"/><rect class="k" x="128" y="14" width="40" height="24" rx="7"/><rect class="k alt" x="128" y="52" width="40" height="24" rx="7"/><path class="d" pathLength="1" d="M148 38V52M148 76V90"/><circle class="p" cx="148" cy="94" r="4"/><rect class="k" x="184" y="14" width="40" height="24" rx="7"/><rect class="k alt" x="184" y="52" width="40" height="24" rx="7"/><path class="d" pathLength="1" d="M204 38V52M204 76V90"/><circle class="p" cx="204" cy="94" r="4"/><path class="d" pathLength="1" d="M56 26H70M66 22l4 4-4 4M112 26H126M122 22l4 4-4 4M168 26H182M178 22l4 4-4 4"/><path class="d" pathLength="1" d="M70 64H56M60 60l-4 4 4 4M126 64H112M116 60l-4 4 4 4M182 64H168M172 60l-4 4 4 4"/></svg></div>
+              <div class="tech-copy"><p class="tech-name">BiLSTM</p><p class="tech-desc">Dos LSTM que recorren la ventana en sentidos opuestos y combinan lo que ve cada una.</p></div>
+            </div>
+            <div class="tech-panel" data-tech-panel style="--c:var(--s4);--ci:var(--s4-ink)" hidden>
+              <div class="tech-art" aria-hidden="true"><svg viewBox="0 0 240 104" focusable="false"><path class="d" pathLength="1" d="M10 35L21 30L32 30.2L43 28L54 50.4L65 54.1L76 46.1L87 45.7L98 25.8L109 24.7L120 39.7L131 40.9L142 55.7L153 53.6L164 33.7L175 33.6L186 25.9L197 30.4L208 52.6L219 49.8L230 49.8"/><rect class="win" x="10" y="10" width="44" height="58" rx="7"/><rect class="b" x="14" y="84.1" width="7" height="13.9" rx="1.5"/><rect class="b" x="26.6" y="78" width="7" height="20" rx="1.5"/><rect class="b" x="39.2" y="82.5" width="7" height="15.5" rx="1.5"/><rect class="b" x="51.8" y="89.8" width="7" height="8.2" rx="1.5"/><rect class="b" x="64.4" y="79.8" width="7" height="18.2" rx="1.5"/><rect class="b" x="77" y="79" width="7" height="19" rx="1.5"/><rect class="b" x="89.6" y="88.1" width="7" height="9.9" rx="1.5"/><rect class="b" x="102.2" y="83.9" width="7" height="14.1" rx="1.5"/><rect class="b" x="114.8" y="78" width="7" height="20" rx="1.5"/><rect class="b" x="127.4" y="82.7" width="7" height="15.3" rx="1.5"/><rect class="b" x="140" y="89.6" width="7" height="8.4" rx="1.5"/><rect class="b" x="152.6" y="79.7" width="7" height="18.3" rx="1.5"/><rect class="b" x="165.2" y="79.1" width="7" height="18.9" rx="1.5"/><rect class="b" x="177.8" y="88.3" width="7" height="9.7" rx="1.5"/><rect class="b" x="190.4" y="83.7" width="7" height="14.3" rx="1.5"/><rect class="b" x="203" y="78" width="7" height="20" rx="1.5"/><rect class="b" x="215.6" y="82.9" width="7" height="15.1" rx="1.5"/></svg></div>
+              <div class="tech-copy"><p class="tech-name">CNN 1D</p><p class="tech-desc">Filtros que se deslizan sobre la serie y reconocen patrones locales, como el ciclo semanal.</p></div>
+            </div>
+            <div class="tech-panel" data-tech-panel style="--c:var(--s5);--ci:var(--s5-ink)" hidden>
+              <div class="tech-art" aria-hidden="true"><svg viewBox="0 0 240 104" focusable="false"><path class="d" pathLength="1" d="M12 96H228"/><rect class="b" x="18" y="87.1" width="11" height="6.9" rx="2"/><rect class="b" x="34" y="66.2" width="11" height="27.8" rx="2"/><rect class="b" x="50" y="38.5" width="11" height="55.5" rx="2"/><rect class="b" x="66" y="20" width="11" height="74" rx="2"/><rect class="b" x="82" y="20" width="11" height="74" rx="2"/><rect class="b" x="98" y="34.8" width="11" height="59.2" rx="2"/><rect class="b" x="114" y="54.5" width="11" height="39.5" rx="2"/><rect class="b" x="130" y="71.4" width="11" height="22.6" rx="2"/><rect class="b" x="146" y="82.7" width="11" height="11.3" rx="2"/><rect class="b" x="162" y="89" width="11" height="5" rx="2"/><rect class="b" x="178" y="92" width="11" height="2" rx="2"/><rect class="b" x="194" y="93.3" width="11" height="1.5" rx="2"/><rect class="b" x="210" y="93.8" width="11" height="1.5" rx="2"/></svg></div>
+              <div class="tech-copy"><p class="tech-name">Poisson</p><p class="tech-desc">Modelo de conteo clásico: supone que la media y la varianza de las emergencias son iguales.</p></div>
+            </div>
+            <div class="tech-panel" data-tech-panel style="--c:var(--s6);--ci:var(--s6-ink)" hidden>
+              <div class="tech-art" aria-hidden="true"><svg viewBox="0 0 240 104" focusable="false"><path class="d" pathLength="1" d="M12 96H228"/><rect class="b" x="18" y="20" width="11" height="74" rx="2"/><rect class="b" x="34" y="34.8" width="11" height="59.2" rx="2"/><rect class="b" x="50" y="46.6" width="11" height="47.4" rx="2"/><rect class="b" x="66" y="56.1" width="11" height="37.9" rx="2"/><rect class="b" x="82" y="63.7" width="11" height="30.3" rx="2"/><rect class="b" x="98" y="69.8" width="11" height="24.2" rx="2"/><rect class="b" x="114" y="74.6" width="11" height="19.4" rx="2"/><rect class="b" x="130" y="78.5" width="11" height="15.5" rx="2"/><rect class="b" x="146" y="81.6" width="11" height="12.4" rx="2"/><rect class="b" x="162" y="84.1" width="11" height="9.9" rx="2"/><rect class="b" x="178" y="86.1" width="11" height="7.9" rx="2"/><rect class="b" x="194" y="87.6" width="11" height="6.4" rx="2"/><rect class="b" x="210" y="88.9" width="11" height="5.1" rx="2"/></svg></div>
+              <div class="tech-copy"><p class="tech-name">Binomial negativa</p><p class="tech-desc">Conteo con sobredispersión: admite días mucho más cargados que el promedio.</p></div>
+            </div>
+            <div class="tech-panel" data-tech-panel style="--c:var(--s7);--ci:var(--s7-ink)" hidden>
+              <div class="tech-art" aria-hidden="true"><svg viewBox="0 0 240 104" focusable="false"><path class="d" pathLength="1" d="M12 96H228"/><rect class="b hi" x="18" y="20" width="11" height="74" rx="2"/><rect class="b" x="34" y="78.8" width="11" height="15.2" rx="2"/><rect class="b" x="50" y="75" width="11" height="19" rx="2"/><rect class="b" x="66" y="74.2" width="11" height="19.8" rx="2"/><rect class="b" x="82" y="75.4" width="11" height="18.6" rx="2"/><rect class="b" x="98" y="77.8" width="11" height="16.2" rx="2"/><rect class="b" x="114" y="80.5" width="11" height="13.5" rx="2"/><rect class="b" x="130" y="83.1" width="11" height="10.9" rx="2"/><rect class="b" x="146" y="85.5" width="11" height="8.5" rx="2"/><rect class="b" x="162" y="87.5" width="11" height="6.5" rx="2"/><rect class="b" x="178" y="89.1" width="11" height="4.9" rx="2"/><rect class="b" x="194" y="90.4" width="11" height="3.6" rx="2"/><rect class="b" x="210" y="91.4" width="11" height="2.6" rx="2"/></svg></div>
+              <div class="tech-copy"><p class="tech-name">ZINB</p><p class="tech-desc">Binomial negativa inflada en ceros: modela aparte los días sin ninguna emergencia.</p></div>
+            </div>
+            <span class="tech-timer" aria-hidden="true"></span>
+          </div>
+          <p class="process-hint">Señala una técnica para ver cómo funciona; tócala para fijarla.</p>
         </aside>
       </div>
     </section>
@@ -92,18 +147,37 @@
         <header class="stage-head">
           <p class="eyebrow section-eyebrow" data-draw-eyebrow><span class="idx">01</span> / El problema</p>
           <span class="stage-num" aria-hidden="true" data-reveal>01</span>
-          <h2 class="stage-title" data-reveal>Despacho reactivo</h2>
-          <p class="stage-lead" data-reveal>Surtigas atiende las emergencias de su red de gas solo después del reporte del usuario.</p>
+          <h2 class="stage-title" data-reveal data-words>Despacho reactivo</h2>
+          <p class="stage-lead" data-reveal>Hoy la cuadrilla sale cuando el usuario ya llamó, y la capacidad se programa mirando hacia atrás.</p>
           <ol class="stage-dots" aria-hidden="true" data-reveal><li class="on"></li><li></li><li></li><li></li><li></li><li></li><li></li></ol>
         </header>
         <div class="stage-body" data-reveal>
-          <p>Las cuadrillas se despachan cuando el incidente ya ocurrió. Entre 2017 y 2026 eso significó <strong>50 195 emergencias</strong> atendidas sin saber cuántas llegarían cada día.</p>
-          <p>La analítica de redes de gas venía concentrada en la detección física de fugas. La pregunta de planificación —cuántas emergencias llegarán mañana al centro de control— no tenía respuesta para una ciudad intermedia colombiana.</p>
-          <figure class="paper-figure">
-            <img src="assets/figuras/eda_serie_diaria.png" alt="Serie diaria de emergencias de gas registradas en Montería entre 2017 y 2026." loading="lazy" width="1031" height="876">
-            <figcaption>Demanda diaria de emergencias registrada en Montería, 2017–2026.</figcaption>
+          <p>Entre 2017 y 2026, el centro de control de Montería atendió <strong>50 195 emergencias</strong>. El promedio diario subió de 12 a 20 entre 2017 y 2024, y cambia mucho de un día de la semana a otro. Programar con la demanda reciente deja días cortos de cuadrillas y otros con turnos que nadie usa: unas <strong>3 878 horas al año</strong> mal dimensionadas.</p>
+          <p>Cumplir no es el problema: el 99 % de las emergencias no controladas se atiende en menos de una hora. El problema es lo que cuesta cumplir. En la operación simulada, las horas extra suman 51,86 millones de pesos al año y los traslados entre sectores otros 11,13 millones. Si la demanda sigue creciendo, ese margen se estrecha.</p>
+          <figure class="chart-card serie-card" data-serie aria-labelledby="serie-title">
+            <div class="chart-head">
+              <div>
+                <p class="chart-title" id="serie-title">Demanda diaria de emergencias</p>
+                <p class="chart-desc">Media móvil de 30 días, emergencias por día · 2 ene 2017 – 17 mar 2026</p>
+              </div>
+              <div class="segmented" role="group" aria-label="Periodo">
+                <button type="button" aria-pressed="true" data-range="all">Todo</button>
+                <button type="button" aria-pressed="false" data-range="2023">Desde 2023</button>
+                <button type="button" aria-pressed="false" data-range="test">Año de prueba</button>
+              </div>
+            </div>
+            <div class="chart-plot" data-serie-plot></div>
+            <div class="serie-years" data-serie-years role="group" aria-label="Media anual por año"></div>
+            <figcaption class="chart-foot">
+              <p class="chart-insight" data-serie-insight>La media anual pasó de 12,1 emergencias por día en 2017 a 20,2 en 2024 y bajó a 18,5 en 2025; el máximo diario fue de 97, el 6 de junio de 2024.</p>
+              <button class="island" type="button" data-figure="assets/figuras/eda_serie_diaria.png" data-caption="Demanda diaria de emergencias en Montería, enero de 2017 a marzo de 2026 (Fig. 6 del paper).">
+                <span class="island-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg></span>
+                <span class="island-text"><span class="island-kicker">Figura del paper</span><span class="island-title">Ver original</span></span>
+              </button>
+            </figcaption>
+            <noscript><img src="assets/figuras/eda_serie_diaria.png" alt="Demanda diaria de emergencias en Montería entre 2017 y 2026, con su media móvil de 30 días." width="1091" height="965"></noscript>
           </figure>
-          <ul class="chips" aria-label="Claves del problema"><li>Despacho reactivo</li><li>50 195 registros</li><li>2017–2026</li></ul>
+          <ul class="chips" aria-label="Claves del problema"><li>Despacho reactivo</li><li>50 195 emergencias</li><li>3 878 h mal dimensionadas al año</li></ul>
         </div>
       </div>
     </section>
@@ -117,14 +191,21 @@
         <header class="stage-head">
           <p class="eyebrow section-eyebrow" data-draw-eyebrow><span class="idx">02</span> / La pregunta</p>
           <span class="stage-num" aria-hidden="true" data-reveal>02</span>
-          <h2 class="stage-title" data-reveal>La pregunta de investigación</h2>
-          <p class="stage-lead" data-reveal>¿Reduce un modelo predictivo el error del pronóstico diario frente a los métodos de referencia?</p>
+          <h2 class="stage-title" data-reveal data-words>La pregunta de investigación</h2>
+          <p class="stage-lead" data-reveal>El registro de emergencias ya existía. Faltaba saber si servía para anticipar el día siguiente.</p>
           <ol class="stage-dots" aria-hidden="true" data-reveal><li class="done"></li><li class="on"></li><li></li><li></li><li></li><li></li><li></li></ol>
         </header>
         <div class="stage-body" data-reveal>
-          <p>El trabajo siguió <strong>CRISP-ML(Q)</strong>, con la gestión de procesos de negocio como marco transversal, y comparó siete técnicas bajo un protocolo temporal sin fugas de información.</p>
-          <p>La técnica y la ventana de entrada se eligieron con un diseño factorial 4×5 con tres réplicas sobre el bloque de validación. El conjunto de prueba se reservó para una única evaluación final.</p>
-          <blockquote class="stage-quote">¿Cuántas emergencias llegarán cada día al centro de control?</blockquote>
+          <p class="rq-kicker">Pregunta principal</p>
+          <blockquote class="stage-quote is-long">¿En qué medida un modelo predictivo entrenado con el registro de emergencias de Surtigas reduce el error del pronóstico diario y las horas de cuadrilla mal dimensionadas?</blockquote>
+          <p>Para responderla, el proyecto se planteó cuatro preguntas más concretas:</p>
+          <ol class="rq-list">
+            <li>¿Qué patrones de calendario, tendencia y dispersión caracterizan la demanda diaria de emergencias?</li>
+            <li>¿Qué técnica pronostica la demanda diaria con menor error y mayor estabilidad bajo un protocolo sin fugas?</li>
+            <li>¿Cuántas horas de cuadrilla mal dimensionadas evita el pronóstico y cuál es su valor económico?</li>
+            <li>¿Qué indicadores necesita cada rol del centro de control para usar el pronóstico en sus decisiones?</li>
+          </ol>
+          <p>La analítica en redes de gas se ha dedicado sobre todo a detectar fugas. Para anticipar cuántas emergencias llegarán al distribuidor no se encontró un estudio equivalente en una ciudad intermedia de Colombia.</p>
         </div>
       </div>
     </section>
@@ -138,27 +219,46 @@
         <header class="stage-head">
           <p class="eyebrow section-eyebrow" data-draw-eyebrow><span class="idx">03</span> / Método</p>
           <span class="stage-num" aria-hidden="true" data-reveal>03</span>
-          <h2 class="stage-title" data-reveal>Método</h2>
-          <p class="stage-lead" data-reveal>Siete técnicas y un protocolo temporal sin fugas.</p>
+          <h2 class="stage-title" data-reveal data-words>Método</h2>
+          <p class="stage-lead" data-reveal>Siete técnicas compitieron con las mismas reglas, y el examen final se presentó una sola vez.</p>
           <ol class="stage-dots" aria-hidden="true" data-reveal><li class="done"></li><li class="done"></li><li class="on"></li><li></li><li></li><li></li><li></li></ol>
         </header>
         <div class="stage-body" data-reveal>
           <div class="flow" aria-label="Recorrido del método">
-            <button class="flow-step" type="button" data-figure="assets/figuras/fig02_flujo_datos.png" data-caption="Flujo de datos del proyecto: de la fuente a los conjuntos de entrenamiento y prueba.">
+            <button class="flow-step" type="button" aria-pressed="false">
               <span>Datos</span><strong>50 195 registros de emergencias (2017–2026)</strong>
               <svg class="ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
             </button>
-            <button class="flow-step" type="button" data-figure="assets/figuras/fig03_protocolo.png" data-caption="Diseño y protocolo: partición temporal y bloques de validación.">
+            <button class="flow-step" type="button" aria-pressed="false">
               <span>Diseño</span><strong>Factorial 4×5×3 sobre el bloque de validación</strong>
               <svg class="ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
             </button>
-            <button class="flow-step" type="button" data-figure="assets/figuras/doe_02_prueba.png" data-caption="Evaluación: el conjunto de prueba se consulta una sola vez.">
+            <button class="flow-step" type="button" aria-pressed="false">
               <span>Evaluación</span><strong>Test consultado una sola vez</strong>
               <svg class="ic" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
             </button>
           </div>
-          <p>Se entrenaron cuatro técnicas de aprendizaje automático (XGBoost, LSTM, BiLSTM y una red convolucional unidimensional) y tres modelos de conteo (Poisson, binomial negativa y su versión inflada en ceros). Minimizar las fugas de información fue la regla del protocolo.</p>
-          <p class="flow-hint">Toca un bloque para ver su figura.</p>
+          <div class="tech-stage is-wide" data-tech-stage data-items="#metodo .flow-step" data-current="is-current">
+            <div class="tech-panel" data-tech-panel data-fig="assets/figuras/fig02_flujo_datos.png" data-cap="Flujo de datos del proyecto: de la fuente a los conjuntos de entrenamiento y prueba.">
+              <div class="tech-art" aria-hidden="true"><svg viewBox="0 0 360 176" focusable="false"><path class="d" pathLength="1" d="M110 36H124M120 32l4 4-4 4M232 36H246M242 32l4 4-4 4M302 64V108M298 104l4 4 4-4M250 140H236M240 136l-4 4 4 4"/><path id="route-flujo" class="route" d="M58 36H302V140H180"/><circle class="tr" r="5" data-route="route-flujo" data-dur="3.2"/><g class="nd" style="--n:var(--s5)"><rect x="6" y="8" width="104" height="56" rx="10"/><text class="t1" x="58" y="32">Registro original</text><text class="t2" x="58" y="50">50 198 órdenes</text></g><g class="nd" style="--n:var(--muted)"><rect x="128" y="8" width="104" height="56" rx="10"/><text class="t1" x="180" y="32">Limpieza</text><text class="t2" x="180" y="50">50 195 válidas</text></g><g class="nd" style="--n:var(--s4)"><rect x="250" y="8" width="104" height="56" rx="10"/><text class="t1" x="302" y="32">Imputación</text><text class="t2" x="302" y="50">880 imputados</text></g><g class="nd" style="--n:var(--s1)"><rect x="250" y="112" width="104" height="56" rx="10"/><text class="t1" x="302" y="136">Serie diaria</text><text class="t2" x="302" y="154">3362 días</text></g><g class="nd" style="--n:var(--s3)"><rect x="128" y="112" width="104" height="56" rx="10"/><text class="t1" x="180" y="136">Variables</text><text class="t2" x="180" y="154">calendario + W</text></g><text class="t3" x="10" y="146">2017 – 2026</text><text class="t3" x="10" y="160">sin fugas entre etapas</text></svg></div>
+              <div class="tech-copy"><p class="tech-name">Datos</p><p class="tech-desc">De 50 198 órdenes a una serie diaria de 3362 días: se limpiaron fechas imposibles, se imputaron 880 tiempos negativos con un bosque aleatorio y se añadieron variables de calendario.</p></div>
+            </div>
+            <div class="tech-panel" data-tech-panel data-fig="assets/figuras/fig03_protocolo.png" data-cap="Diseño y protocolo: partición temporal y bloques de validación." hidden>
+              <div class="tech-art" aria-hidden="true"><svg viewBox="0 0 360 204" focusable="false"><text class="t3" x="6" y="12">Partición temporal (días)</text><rect class="seg" x="6" y="20" width="276.4" height="16" rx="4" style="--n:var(--s1)"/><rect class="seg" x="284.4" y="20" width="32.8" height="16" rx="4" style="--n:var(--s6)"/><rect class="seg" x="319.2" y="20" width="32.8" height="16" rx="4" style="--n:var(--s5)"/><text class="t2 l" x="6" y="52">Entrenamiento 2689</text><text class="t2 r" x="354" y="52">Validación 336 · Prueba 336</text><text class="t3" x="6" y="70">W =</text><text class="t3 c" x="70" y="70">10</text><text class="t3 c" x="90" y="70">20</text><text class="t3 c" x="110" y="70">30</text><text class="t3 c" x="130" y="70">40</text><text class="t3 c" x="150" y="70">50</text><text class="t2 r" x="56" y="88">XGBoost</text><rect class="cell" x="62" y="76" width="16" height="16" rx="3"/><rect class="cell" x="82" y="76" width="16" height="16" rx="3"/><rect class="cell" x="102" y="76" width="16" height="16" rx="3"/><rect class="cell champ" x="122" y="76" width="16" height="16" rx="3"/><rect class="cell" x="142" y="76" width="16" height="16" rx="3"/><text class="t2 r" x="56" y="108">LSTM</text><rect class="cell" x="62" y="96" width="16" height="16" rx="3"/><rect class="cell" x="82" y="96" width="16" height="16" rx="3"/><rect class="cell" x="102" y="96" width="16" height="16" rx="3"/><rect class="cell" x="122" y="96" width="16" height="16" rx="3"/><rect class="cell" x="142" y="96" width="16" height="16" rx="3"/><text class="t2 r" x="56" y="128">BiLSTM</text><rect class="cell" x="62" y="116" width="16" height="16" rx="3"/><rect class="cell" x="82" y="116" width="16" height="16" rx="3"/><rect class="cell" x="102" y="116" width="16" height="16" rx="3"/><rect class="cell" x="122" y="116" width="16" height="16" rx="3"/><rect class="cell" x="142" y="116" width="16" height="16" rx="3"/><text class="t2 r" x="56" y="148">CNN 1D</text><rect class="cell" x="62" y="136" width="16" height="16" rx="3"/><rect class="cell" x="82" y="136" width="16" height="16" rx="3"/><rect class="cell" x="102" y="136" width="16" height="16" rx="3"/><rect class="cell" x="122" y="136" width="16" height="16" rx="3"/><rect class="cell" x="142" y="136" width="16" height="16" rx="3"/><text class="t1 l" x="182" y="88">4 × 5 × 3 = 60 corridas</text><text class="t2 l" x="182" y="104">solo sobre validación</text><g class="reps"><circle class="rep" cx="188" cy="120" r="4.5"/><circle class="rep" cx="202" cy="120" r="4.5"/><circle class="rep" cx="216" cy="120" r="4.5"/><text class="t3" x="230" y="123">réplicas</text></g><g class="nd" style="--n:var(--s5)"><rect x="182" y="134" width="172" height="22" rx="7"/><text class="t2" x="268" y="149">ANOVA · Kruskal-Wallis · Tukey</text></g><path id="route-proto" class="route" d="M54 184H351"/><circle class="tr" r="4" data-route="route-proto" data-dur="2.4"/><g class="nd" style="--n:var(--s6)"><rect x="6" y="172" width="96" height="24" rx="12"/><text class="t2" x="54" y="188">Mejor ventana</text></g><g class="nd" style="--n:var(--s6)"><rect x="124" y="172" width="96" height="24" rx="12"/><text class="t2" x="172" y="188">Reajuste</text></g><g class="nd" style="--n:var(--s6)"><rect x="242" y="172" width="96" height="24" rx="12"/><text class="t2" x="290" y="188">Prueba ×1</text></g><path class="d" pathLength="1" d="M102 184H120M116 180l4 4-4 4M220 184H238M234 180l4 4-4 4M338 184H346"/><circle class="p" cx="351" cy="184" r="5"/></svg></div>
+              <div class="tech-copy"><p class="tech-name">Diseño</p><p class="tech-desc">Partición temporal sin fugas. Sobre validación, un factorial 4×5 con 3 réplicas (60 corridas) eligió técnica y ventana: ganó XGBoost con W = 40. La prueba se usó una sola vez.</p></div>
+            </div>
+            <div class="tech-panel" data-tech-panel data-fig="assets/figuras/doe_02_prueba.png" data-cap="Evaluación: el conjunto de prueba se consulta una sola vez." hidden>
+              <div class="tech-art" aria-hidden="true"><svg viewBox="0 0 360 184" focusable="false"><defs><clipPath id="sweep"><rect class="sweep" x="0" y="0" width="360" height="190"/></clipPath></defs><path class="grid" d="M34 160H352"/><text class="t3 r" x="28" y="163">0</text><path class="grid" d="M34 118.9H352"/><text class="t3 r" x="28" y="121.9">10</text><path class="grid" d="M34 77.8H352"/><text class="t3 r" x="28" y="80.8">20</text><path class="grid" d="M34 36.7H352"/><text class="t3 r" x="28" y="39.7">30</text><text class="t3 c" x="51" y="176">5 ene</text><text class="t3 c" x="140" y="176">26 ene</text><text class="t3 c" x="229" y="176">16 feb</text><text class="t3 c" x="318.1" y="176">9 mar</text><g clip-path="url(#sweep)"><rect class="band" x="32.4" y="127.1" width="3.2" height="32.9"/><rect class="band" x="36.6" y="73.7" width="3.2" height="86.3"/><rect class="band" x="40.9" y="73.7" width="3.2" height="74"/><rect class="band" x="45.1" y="94.2" width="3.2" height="53.4"/><rect class="band" x="49.4" y="57.2" width="3.2" height="90.4"/><rect class="band" x="53.6" y="49" width="3.2" height="78.1"/><rect class="band" x="57.8" y="49" width="3.2" height="78.1"/><rect class="band" x="62.1" y="53.1" width="3.2" height="74"/><rect class="band" x="66.3" y="32.6" width="3.2" height="94.6"/><rect class="band" x="70.6" y="32.6" width="3.2" height="111"/><rect class="band" x="74.8" y="94.2" width="3.2" height="53.4"/><rect class="band" x="79" y="53.1" width="3.2" height="98.7"/><rect class="band" x="83.3" y="36.7" width="3.2" height="111"/><rect class="band" x="87.5" y="12" width="3.2" height="111"/><rect class="band" x="91.8" y="12" width="3.2" height="102.8"/><rect class="band" x="96" y="12" width="3.2" height="98.7"/><rect class="band" x="100.2" y="20.2" width="3.2" height="123.3"/><rect class="band" x="104.5" y="98.3" width="3.2" height="53.4"/><rect class="band" x="108.7" y="16.1" width="3.2" height="111"/><rect class="band" x="113" y="16.1" width="3.2" height="111"/><rect class="band" x="117.2" y="16.1" width="3.2" height="98.7"/><rect class="band" x="121.4" y="16.1" width="3.2" height="98.7"/><rect class="band" x="125.7" y="32.6" width="3.2" height="82.2"/><rect class="band" x="129.9" y="106.6" width="3.2" height="41.1"/><rect class="band" x="134.2" y="106.6" width="3.2" height="41.1"/><rect class="band" x="138.4" y="49" width="3.2" height="74"/><rect class="band" x="142.6" y="49" width="3.2" height="74"/><rect class="band" x="146.9" y="44.9" width="3.2" height="78.1"/><rect class="band" x="151.1" y="44.9" width="3.2" height="78.1"/><rect class="band" x="155.4" y="44.9" width="3.2" height="82.2"/><rect class="band" x="159.6" y="114.8" width="3.2" height="37"/><rect class="band" x="163.8" y="81.9" width="3.2" height="69.9"/><rect class="band" x="168.1" y="32.6" width="3.2" height="119.2"/><rect class="band" x="172.3" y="36.7" width="3.2" height="90.4"/><rect class="band" x="176.6" y="32.6" width="3.2" height="86.3"/><rect class="band" x="180.8" y="32.6" width="3.2" height="86.3"/><rect class="band" x="185" y="36.7" width="3.2" height="82.2"/><rect class="band" x="189.3" y="102.4" width="3.2" height="41.1"/><rect class="band" x="193.5" y="102.4" width="3.2" height="41.1"/><rect class="band" x="197.8" y="28.4" width="3.2" height="115.1"/><rect class="band" x="202" y="28.4" width="3.2" height="90.4"/><rect class="band" x="206.2" y="12" width="3.2" height="106.9"/><rect class="band" x="210.5" y="7.9" width="3.2" height="102.8"/><rect class="band" x="214.7" y="7.9" width="3.2" height="102.8"/><rect class="band" x="219" y="98.3" width="3.2" height="49.3"/><rect class="band" x="223.2" y="90.1" width="3.2" height="57.6"/><rect class="band" x="227.4" y="12" width="3.2" height="135.7"/><rect class="band" x="231.7" y="12" width="3.2" height="106.9"/><rect class="band" x="235.9" y="7.9" width="3.2" height="98.7"/><rect class="band" x="240.2" y="32.6" width="3.2" height="82.2"/><rect class="band" x="244.4" y="32.6" width="3.2" height="82.2"/><rect class="band" x="248.6" y="90.1" width="3.2" height="57.6"/><rect class="band" x="252.9" y="98.3" width="3.2" height="49.3"/><rect class="band" x="257.1" y="28.4" width="3.2" height="119.2"/><rect class="band" x="261.4" y="28.4" width="3.2" height="86.3"/><rect class="band" x="265.6" y="28.4" width="3.2" height="86.3"/><rect class="band" x="269.8" y="16.1" width="3.2" height="94.6"/><rect class="band" x="274.1" y="16.1" width="3.2" height="94.6"/><rect class="band" x="278.3" y="81.9" width="3.2" height="61.7"/><rect class="band" x="282.6" y="98.3" width="3.2" height="53.4"/><rect class="band" x="286.8" y="36.7" width="3.2" height="106.9"/><rect class="band" x="291" y="12" width="3.2" height="102.8"/><rect class="band" x="295.3" y="12" width="3.2" height="102.8"/><rect class="band" x="299.5" y="32.6" width="3.2" height="86.3"/><rect class="band" x="303.8" y="32.6" width="3.2" height="86.3"/><rect class="band" x="308" y="40.8" width="3.2" height="106.9"/><rect class="band" x="312.2" y="98.3" width="3.2" height="49.3"/><rect class="band" x="316.5" y="16.1" width="3.2" height="131.6"/><rect class="band" x="320.7" y="16.1" width="3.2" height="98.7"/><rect class="band" x="325" y="16.1" width="3.2" height="98.7"/><rect class="band" x="329.2" y="20.2" width="3.2" height="94.6"/><rect class="band" x="333.4" y="20.2" width="3.2" height="94.6"/><rect class="band" x="337.7" y="20.2" width="3.2" height="127.4"/><rect class="band" x="341.9" y="49" width="3.2" height="98.7"/><rect class="band" x="346.2" y="49" width="3.2" height="98.7"/><rect class="band" x="350.4" y="40.8" width="3.2" height="78.1"/><path class="ln bil" d="M34 137.4L38.2 116.4L42.5 127.1L46.7 135.3L51 104.5L55.2 86.4L59.4 85.6L63.7 86.8L67.9 88.1L72.2 110.7L76.4 133.7L80.6 126.7L84.9 102.4L89.1 83.1L93.4 75.7L97.6 77.8L101.8 103.7L106.1 127.1L110.3 86.4L114.6 75.7L118.8 78.6L123 79L127.3 84.8L131.5 112.7L135.8 130.4L140 88.9L144.2 83.9L148.5 91.8L152.7 91.8L157 94.6L161.2 120.9L165.4 133.3L169.7 95.9L173.9 79.4L178.2 78.6L182.4 79.4L186.6 81.9L190.9 111.9L195.1 128.3L199.4 88.1L203.6 76.1L207.8 81.9L212.1 72L216.3 75.3L220.6 106.6L224.8 126.3L229 84.4L233.3 67.5L237.5 71.6L241.8 79.8L246 86L250.2 109.8L254.5 127.9L258.7 84.8L263 72.8L267.2 75.7L271.4 72L275.7 77.8L279.9 106.6L284.2 124.6L288.4 83.1L292.6 75.7L296.9 73.7L301.1 77.8L305.4 86.8L309.6 111.1L313.8 125.1L318.1 81.9L322.3 71.6L326.6 77L330.8 78.6L335 81.9L339.3 108.6L343.5 123.8L347.8 87.2L352 76.1"/><path class="ln xgb" d="M34 137L38.2 105.7L42.5 116.4L46.7 130.4L51 87.6L55.2 85.2L59.4 83.1L63.7 91.8L67.9 77.4L72.2 108.6L76.4 129.6L80.6 121.4L84.9 83.5L89.1 67.1L93.4 74.5L97.6 72L101.8 99.6L106.1 128.8L110.3 81.9L114.6 78.2L118.8 70L123 80.2L127.3 88.5L131.5 116.4L140 72.4L144.2 81.9L148.5 84.8L152.7 86L157 97.5L161.2 123.8L165.4 137L169.7 90.1L173.9 75.7L178.2 79.8L182.4 83.5L186.6 83.9L190.9 112.7L195.1 130.8L199.4 71.6L203.6 73.3L207.8 78.6L212.1 55.6L216.3 79.4L220.6 98.7L224.8 125.5L229 69.6L233.3 66.3L237.5 77.8L241.8 82.3L246 86L250.2 118.5L254.5 129.6L258.7 69.6L263 78.2L267.2 82.7L271.4 72.4L275.7 82.3L279.9 107.8L284.2 129.2L288.4 64.6L292.6 78.6L296.9 68.7L301.1 80.7L305.4 87.2L309.6 114.8L313.8 123.8L318.1 73.7L322.3 75.3L326.6 80.7L330.8 81.1L335 83.9L339.3 100.4L343.5 126.7L347.8 79.4L352 79.4"/><path class="ln obs" d="M34 155.9L38.2 98.3L42.5 98.3L46.7 123L51 57.2L55.2 61.3L59.4 94.2L63.7 65.4L67.9 73.7L72.2 61.3L76.4 143.6L80.6 151.8L84.9 40.8L89.1 32.6L93.4 65.4L97.6 86L101.8 131.2L106.1 114.8L110.3 65.4L114.6 61.3L118.8 77.8L123 81.9L127.3 98.3L131.5 131.2L135.8 139.4L140 110.7L144.2 114.8L148.5 77.8L152.7 98.3L157 118.9L161.2 139.4L165.4 118.9L169.7 40.8L173.9 61.3L178.2 73.7L182.4 65.4L186.6 86L190.9 118.9L195.1 143.6L199.4 61.3L203.6 90.1L207.8 24.3L212.1 65.4L216.3 65.4L220.6 131.2L224.8 143.6L229 44.9L233.3 65.4L237.5 102.4L241.8 86L246 73.7L250.2 106.6L254.5 139.4L258.7 61.3L263 65.4L267.2 49L271.4 81.9L275.7 69.6L279.9 98.3L284.2 143.6L288.4 94.2L292.6 44.9L296.9 73.7L301.1 102.4L305.4 61.3L309.6 90.1L313.8 123L318.1 69.6L322.3 81.9L326.6 77.8L330.8 65.4L335 65.4L339.3 123L343.5 139.4L347.8 94.2L352 118.9"/><circle class="dot" cx="34" cy="155.9" r="1.5"/><circle class="dot" cx="38.2" cy="98.3" r="1.5"/><circle class="dot" cx="42.5" cy="98.3" r="1.5"/><circle class="dot" cx="46.7" cy="123" r="1.5"/><circle class="dot" cx="51" cy="57.2" r="1.5"/><circle class="dot" cx="55.2" cy="61.3" r="1.5"/><circle class="dot" cx="59.4" cy="94.2" r="1.5"/><circle class="dot" cx="63.7" cy="65.4" r="1.5"/><circle class="dot" cx="67.9" cy="73.7" r="1.5"/><circle class="dot" cx="72.2" cy="61.3" r="1.5"/><circle class="dot" cx="76.4" cy="143.6" r="1.5"/><circle class="dot" cx="80.6" cy="151.8" r="1.5"/><circle class="dot" cx="84.9" cy="40.8" r="1.5"/><circle class="dot" cx="89.1" cy="32.6" r="1.5"/><circle class="dot" cx="93.4" cy="65.4" r="1.5"/><circle class="dot" cx="97.6" cy="86" r="1.5"/><circle class="dot" cx="101.8" cy="131.2" r="1.5"/><circle class="dot" cx="106.1" cy="114.8" r="1.5"/><circle class="dot" cx="110.3" cy="65.4" r="1.5"/><circle class="dot" cx="114.6" cy="61.3" r="1.5"/><circle class="dot" cx="118.8" cy="77.8" r="1.5"/><circle class="dot" cx="123" cy="81.9" r="1.5"/><circle class="dot" cx="127.3" cy="98.3" r="1.5"/><circle class="dot" cx="131.5" cy="131.2" r="1.5"/><circle class="dot" cx="135.8" cy="139.4" r="1.5"/><circle class="dot" cx="140" cy="110.7" r="1.5"/><circle class="dot" cx="144.2" cy="114.8" r="1.5"/><circle class="dot" cx="148.5" cy="77.8" r="1.5"/><circle class="dot" cx="152.7" cy="98.3" r="1.5"/><circle class="dot" cx="157" cy="118.9" r="1.5"/><circle class="dot" cx="161.2" cy="139.4" r="1.5"/><circle class="dot" cx="165.4" cy="118.9" r="1.5"/><circle class="dot" cx="169.7" cy="40.8" r="1.5"/><circle class="dot" cx="173.9" cy="61.3" r="1.5"/><circle class="dot" cx="178.2" cy="73.7" r="1.5"/><circle class="dot" cx="182.4" cy="65.4" r="1.5"/><circle class="dot" cx="186.6" cy="86" r="1.5"/><circle class="dot" cx="190.9" cy="118.9" r="1.5"/><circle class="dot" cx="195.1" cy="143.6" r="1.5"/><circle class="dot" cx="199.4" cy="61.3" r="1.5"/><circle class="dot" cx="203.6" cy="90.1" r="1.5"/><circle class="dot" cx="207.8" cy="24.3" r="1.5"/><circle class="dot" cx="212.1" cy="65.4" r="1.5"/><circle class="dot" cx="216.3" cy="65.4" r="1.5"/><circle class="dot" cx="220.6" cy="131.2" r="1.5"/><circle class="dot" cx="224.8" cy="143.6" r="1.5"/><circle class="dot" cx="229" cy="44.9" r="1.5"/><circle class="dot" cx="233.3" cy="65.4" r="1.5"/><circle class="dot" cx="237.5" cy="102.4" r="1.5"/><circle class="dot" cx="241.8" cy="86" r="1.5"/><circle class="dot" cx="246" cy="73.7" r="1.5"/><circle class="dot" cx="250.2" cy="106.6" r="1.5"/><circle class="dot" cx="254.5" cy="139.4" r="1.5"/><circle class="dot" cx="258.7" cy="61.3" r="1.5"/><circle class="dot" cx="263" cy="65.4" r="1.5"/><circle class="dot" cx="267.2" cy="49" r="1.5"/><circle class="dot" cx="271.4" cy="81.9" r="1.5"/><circle class="dot" cx="275.7" cy="69.6" r="1.5"/><circle class="dot" cx="279.9" cy="98.3" r="1.5"/><circle class="dot" cx="284.2" cy="143.6" r="1.5"/><circle class="dot" cx="288.4" cy="94.2" r="1.5"/><circle class="dot" cx="292.6" cy="44.9" r="1.5"/><circle class="dot" cx="296.9" cy="73.7" r="1.5"/><circle class="dot" cx="301.1" cy="102.4" r="1.5"/><circle class="dot" cx="305.4" cy="61.3" r="1.5"/><circle class="dot" cx="309.6" cy="90.1" r="1.5"/><circle class="dot" cx="313.8" cy="123" r="1.5"/><circle class="dot" cx="318.1" cy="69.6" r="1.5"/><circle class="dot" cx="322.3" cy="81.9" r="1.5"/><circle class="dot" cx="326.6" cy="77.8" r="1.5"/><circle class="dot" cx="330.8" cy="65.4" r="1.5"/><circle class="dot" cx="335" cy="65.4" r="1.5"/><circle class="dot" cx="339.3" cy="123" r="1.5"/><circle class="dot" cx="343.5" cy="139.4" r="1.5"/><circle class="dot" cx="347.8" cy="94.2" r="1.5"/><circle class="dot" cx="352" cy="118.9" r="1.5"/></g><path class="cursor" d="M0 10V162"/></svg></div>
+              <div class="tech-copy"><p class="tech-name">Evaluación</p><p class="tech-desc">Del 1 de enero al 17 de marzo de 2026, el trimestre más representativo del año de prueba. Recreado a partir de la figura del paper.</p><p class="tech-legend"><span class="lg"><i class="sw obs"></i>Demanda observada</span><span class="lg"><i class="sw xgb"></i>XGBoost</span><span class="lg"><i class="sw bil"></i>BiLSTM</span><span class="lg"><i class="sw band"></i>Intervalo 80 % (ZINB)</span></p></div>
+            </div>
+            <button class="island" type="button" data-island hidden>
+              <span class="island-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg></span>
+              <span class="island-text"><span class="island-kicker">Figura del paper</span><span class="island-title">Ver más</span></span>
+            </button>
+            <span class="tech-timer" aria-hidden="true"></span>
+          </div>
+          <p>Cuatro técnicas de aprendizaje automático (XGBoost, LSTM, BiLSTM y una red convolucional) se midieron contra tres modelos estadísticos de conteo (Poisson, binomial negativa y su versión inflada en ceros). La ganadora salió de un diseño de experimentos sobre los datos de validación. El año de prueba quedó guardado hasta el final, sin que ningún modelo lo viera antes. Todo el proceso siguió CRISP-ML(Q), el estándar para proyectos de aprendizaje automático con control de calidad.</p>
+          <p class="flow-hint">Señala un bloque para ver su recreación; tócalo para fijarla y abrir la figura con «Ver más».</p>
           <ul class="chips" aria-label="Claves del método"><li>CRISP-ML(Q)</li><li>Diseño factorial 4×5×3</li><li>Sin fugas</li></ul>
         </div>
       </div>
@@ -166,6 +266,7 @@
 
     <!-- 05 · RESULTADOS -->
     <section class="section stage" id="resultados" data-section data-label="Resultados" data-ink="var(--s3-ink)" data-choreo style="--c:var(--s3);--ci:var(--s3-ink);--on:var(--on-s3)">
+      <div class="dot-wave" data-dot-wave aria-hidden="true"></div>
       <span class="draw-rule" data-draw-rule aria-hidden="true"></span>
       <span class="draw-tick tl" data-draw-tick aria-hidden="true"></span>
       <span class="draw-tick tr" data-draw-tick aria-hidden="true"></span>
@@ -173,25 +274,98 @@
         <header class="stage-head">
           <p class="eyebrow section-eyebrow" data-draw-eyebrow><span class="idx">04</span> / Resultados</p>
           <span class="stage-num" aria-hidden="true" data-reveal>04</span>
-          <h2 class="stage-title" data-reveal>Resultados</h2>
-          <p class="stage-lead" data-reveal>XGBoost con ventana de 40 días fue el campeón.</p>
+          <h2 class="stage-title" data-reveal data-words>Resultados</h2>
+          <p class="stage-lead" data-reveal>Ganó XGBoost: el más preciso en validación y el más estable de todos.</p>
           <ol class="stage-dots" aria-hidden="true" data-reveal><li class="done"></li><li class="done"></li><li class="done"></li><li class="on"></li><li></li><li></li><li></li></ol>
         </header>
         <div class="stage-body" data-reveal>
           <ul class="stats" aria-label="Cifras principales">
-            <li class="stat"><b>4,22</b><span>MAE de prueba, emergencias por día</span></li>
-            <li class="stat"><b>−34 %</b><span>de error frente a la mejor referencia</span></li>
-            <li class="stat"><b>59 %</b><span>de la varianza del error la explica la técnica</span></li>
+            <li class="stat"><b>4,22</b><span>emergencias de error medio por día en el año de prueba</span></li>
+            <li class="stat"><b>−34 %</b><span>de error frente al mejor método actual</span></li>
+            <li class="stat"><b>59 %</b><span>de la variación del error la explica la técnica, no la ventana de datos</span></li>
           </ul>
-          <p>En el año de prueba el error absoluto medio fue de <strong>4,22 emergencias por día</strong>, un 34 % menor que el mejor método de referencia (6,40). XGBoost fue significativamente mejor que los modelos de conteo y que las referencias, y sin diferencia significativa frente a las redes neuronales.</p>
-          <p>La ZINB aporta la probabilidad de días de alta demanda y la red bayesiana explica el nivel: los festivos y los fines de semana concentran los días de baja demanda. El tiempo de respuesta de las emergencias no controladas se predice con un error de 0,15 h.</p>
-          <figure class="paper-figure">
-            <img src="assets/figuras/fig15_mae_entrenamiento_prueba.png" alt="Comparación del error absoluto medio de cada técnica en entrenamiento y prueba." loading="lazy" width="989" height="958">
-            <figcaption>Error absoluto medio por técnica en entrenamiento y prueba.</figcaption>
+          <p>En el año de prueba, XGBoost se equivocó en promedio <strong>4,22 emergencias por día</strong>. El mejor método simple, repetir la demanda del mismo día de la semana anterior, se equivocó en 6,40. El modelo recorta ese error un 34 %. Superó con significancia estadística a los modelos de conteo y a todas las referencias, y empató con las redes neuronales, aunque con la mitad de su variación entre corridas.</p>
+          <figure class="bars" aria-label="Error absoluto medio en prueba: XGBoost frente a la mejor referencia">
+            <div class="bar-row"><span class="bar-name">XGBoost (W=40)</span><span class="bar"><span class="bar-fill" style="--v:.66"></span></span><b class="bar-val">4,22</b></div>
+            <div class="bar-row"><span class="bar-name">Mejor referencia</span><span class="bar"><span class="bar-fill" style="--v:1"></span></span><b class="bar-val">6,40</b></div>
+            <figcaption>Error absoluto medio en prueba, emergencias por día.</figcaption>
+          </figure>
+          <p>El pronóstico viene acompañado. La ZINB calcula la probabilidad de que mañana sea un día de demanda alta, y una red bayesiana explica por qué: los festivos y los fines de semana concentran los días tranquilos. Para las emergencias no controladas, las urgentes, el tiempo de respuesta se pronostica con un error de 0,15 h, unos nueve minutos.</p>
+          <figure class="chart-card mae-card" data-mae data-mode="test" aria-labelledby="mae-title">
+            <div class="chart-head">
+              <div>
+                <p class="chart-title" id="mae-title">Error absoluto medio por técnica</p>
+                <p class="chart-desc">Emergencias por día · barra más corta, mejor pronóstico</p>
+              </div>
+              <div class="segmented" role="group" aria-label="Conjunto de datos">
+                <button type="button" aria-pressed="true" data-mode="test">Prueba</button>
+                <button type="button" aria-pressed="false" data-mode="train">Entrenamiento</button>
+                <button type="button" aria-pressed="false" data-mode="both">Comparar</button>
+              </div>
+            </div>
+            <div class="chart-tools">
+              <p class="chart-legend"><span class="lg"><i class="sw ml"></i>Aprendizaje automático</span><span class="lg"><i class="sw count"></i>Modelos de conteo</span><span class="lg"><i class="sw ref"></i>Referencias</span></p>
+              <button class="chip-btn" type="button" aria-pressed="false" data-sort>Ordenar por error</button>
+            </div>
+            <ol class="mae-list">
+              <li class="mae-row is-champ" data-kind="ml" data-train="3.52" data-test="4.22" style="--i:0">
+                <span class="mae-name">XGBoost <small>W = 40 *</small></span>
+                <span class="mae-track" aria-hidden="true"><span class="mae-bar train" style="--v:0.5029"></span><span class="mae-bar test" style="--v:0.6029"></span></span>
+                <b class="mae-val"><span class="v-test">4,22</span><span class="v-train">3,52</span><span class="v-both">3,52 → 4,22</span></b>
+              </li>
+              <li class="mae-row" data-kind="ml" data-train="4.19" data-test="4.17" style="--i:1">
+                <span class="mae-name">BiLSTM</span>
+                <span class="mae-track" aria-hidden="true"><span class="mae-bar train" style="--v:0.5986"></span><span class="mae-bar test" style="--v:0.5957"></span></span>
+                <b class="mae-val"><span class="v-test">4,17</span><span class="v-train">4,19</span><span class="v-both">4,19 → 4,17</span></b>
+              </li>
+              <li class="mae-row" data-kind="count" data-train="4.63" data-test="4.57" style="--i:2">
+                <span class="mae-name">Poisson</span>
+                <span class="mae-track" aria-hidden="true"><span class="mae-bar train" style="--v:0.6614"></span><span class="mae-bar test" style="--v:0.6529"></span></span>
+                <b class="mae-val"><span class="v-test">4,57</span><span class="v-train">4,63</span><span class="v-both">4,63 → 4,57</span></b>
+              </li>
+              <li class="mae-row" data-kind="count" data-train="4.64" data-test="4.59" style="--i:3">
+                <span class="mae-name">ZINB</span>
+                <span class="mae-track" aria-hidden="true"><span class="mae-bar train" style="--v:0.6629"></span><span class="mae-bar test" style="--v:0.6557"></span></span>
+                <b class="mae-val"><span class="v-test">4,59</span><span class="v-train">4,64</span><span class="v-both">4,64 → 4,59</span></b>
+              </li>
+              <li class="mae-row" data-kind="count" data-train="4.67" data-test="4.61" style="--i:4">
+                <span class="mae-name">Binomial negativa</span>
+                <span class="mae-track" aria-hidden="true"><span class="mae-bar train" style="--v:0.6671"></span><span class="mae-bar test" style="--v:0.6586"></span></span>
+                <b class="mae-val"><span class="v-test">4,61</span><span class="v-train">4,67</span><span class="v-both">4,67 → 4,61</span></b>
+              </li>
+              <li class="mae-row" data-kind="ml" data-train="4.34" data-test="4.14" style="--i:5">
+                <span class="mae-name">LSTM</span>
+                <span class="mae-track" aria-hidden="true"><span class="mae-bar train" style="--v:0.6200"></span><span class="mae-bar test" style="--v:0.5914"></span></span>
+                <b class="mae-val"><span class="v-test">4,14</span><span class="v-train">4,34</span><span class="v-both">4,34 → 4,14</span></b>
+              </li>
+              <li class="mae-row" data-kind="ml" data-train="4.25" data-test="4.24" style="--i:6">
+                <span class="mae-name">CNN 1D</span>
+                <span class="mae-track" aria-hidden="true"><span class="mae-bar train" style="--v:0.6071"></span><span class="mae-bar test" style="--v:0.6057"></span></span>
+                <b class="mae-val"><span class="v-test">4,24</span><span class="v-train">4,25</span><span class="v-both">4,25 → 4,24</span></b>
+              </li>
+              <li class="mae-row" data-kind="ref" data-train="6.34" data-test="6.4" style="--i:7">
+                <span class="mae-name">Mismo día sem. ant. <small>referencia</small></span>
+                <span class="mae-track" aria-hidden="true"><span class="mae-bar train" style="--v:0.9057"></span><span class="mae-bar test" style="--v:0.9143"></span></span>
+                <b class="mae-val"><span class="v-test">6,40</span><span class="v-train">6,34</span><span class="v-both">6,34 → 6,40</span></b>
+              </li>
+              <li class="mae-row" data-kind="ref" data-train="6.4" data-test="6.76" style="--i:8">
+                <span class="mae-name">Media móvil 7 d <small>referencia</small></span>
+                <span class="mae-track" aria-hidden="true"><span class="mae-bar train" style="--v:0.9143"></span><span class="mae-bar test" style="--v:0.9657"></span></span>
+                <b class="mae-val"><span class="v-test">6,76</span><span class="v-train">6,40</span><span class="v-both">6,40 → 6,76</span></b>
+              </li>
+            </ol>
+            <figcaption class="chart-foot">
+              <p class="chart-insight" data-mae-insight>XGBoost: 4,22 en prueba, un 34 % menos que la mejor referencia (6,40).</p>
+              <p class="chart-note">* XGBoost se eligió en validación; en prueba no difiere significativamente de las redes neuronales.</p>
+              <button class="island" type="button" data-figure="assets/figuras/fig15_mae_entrenamiento_prueba.png" data-caption="Error absoluto medio por técnica en entrenamiento y prueba.">
+                <span class="island-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg></span>
+                <span class="island-text"><span class="island-kicker">Figura del paper</span><span class="island-title">Ver original</span></span>
+              </button>
+            </figcaption>
           </figure>
           <figure class="paper-figure">
-            <img src="assets/figuras/fig16_matrices_confusion.png" alt="Matrices de confusión por niveles de demanda y por tiempos de respuesta." loading="lazy" width="1074" height="631">
-            <figcaption>Matrices de confusión: niveles de demanda y tiempos de respuesta.</figcaption>
+            <img src="assets/figuras/fig16_matrices_confusion.png" alt="Matrices de confusión de los niveles de demanda en prueba: XGBoost acierta el 74 % de los días y la red bayesiana el 73 %." loading="lazy" decoding="async" width="1087" height="620">
+            <figcaption>Matrices de confusión de los niveles de demanda en el conjunto de prueba.</figcaption>
           </figure>
         </div>
       </div>
@@ -206,42 +380,45 @@
         <header class="stage-head">
           <p class="eyebrow section-eyebrow" data-draw-eyebrow><span class="idx">05</span> / Impacto</p>
           <span class="stage-num" aria-hidden="true" data-reveal>05</span>
-          <h2 class="stage-title" data-reveal>Impacto operativo y financiero</h2>
-          <p class="stage-lead" data-reveal>El pronóstico se traduce en horas de cuadrilla y en dinero.</p>
+          <h2 class="stage-title" data-reveal data-words>Impacto operativo y financiero</h2>
+          <p class="stage-lead" data-reveal>Menos error significa cuadrillas donde y cuando hacen falta. Eso se mide en horas y en pesos.</p>
           <ol class="stage-dots" aria-hidden="true" data-reveal><li class="done"></li><li class="done"></li><li class="done"></li><li class="done"></li><li class="on"></li><li></li><li></li></ol>
         </header>
         <div class="stage-body" data-reveal>
           <ul class="stats" aria-label="Cifras de impacto">
-            <li class="stat"><b>1 468 h</b><span>menos de dotación mal dimensionada por año</span></li>
-            <li class="stat"><b>24 %</b><span>menos horas en déficit repartiendo por sector</span></li>
-            <li class="stat"><b>3,2 %</b><span>probabilidad de multa a partir de la cual conviene la reserva</span></li>
+            <li class="stat"><b>1 468 h</b><span>de cuadrilla mejor aprovechadas al año, unos 183 turnos de 8 h</span></li>
+            <li class="stat"><b>24 %</b><span>menos horas en déficit con la misma nómina</span></li>
+            <li class="stat"><b>3 %</b><span>de probabilidad anual de multa desde la que conviene una reserva</span></li>
           </ul>
-          <p>Traducida a tiempo de cuadrilla, la mejora equivale a unas <strong>1 468 horas anuales</strong> menos de dotación mal dimensionada. En el escenario simulado, repartir las cuadrillas entre sectores según la probabilidad de cada uno reduce en 24 % las horas en déficit con la misma dotación.</p>
-          <p>El punto de equilibrio entre déficit y horas ociosas es de cuatro cuadrillas por día. Ajustar la dotación al pronóstico cuesta menos que fijar ese número y deja menos déficit sin cubrir.</p>
-          <p>Con la valoración regulatoria vigente, la cuadrilla de reserva protege más el cumplimiento pero no es rentable: solo conviene si la probabilidad anual de una multa máxima supera el 3,2 %.</p>
-          <div class="fig-grid">
-            <button class="fig-btn" type="button" data-figure="assets/figuras/v30_marginal.png" data-caption="Horas mal dimensionadas y productividad marginal de la cuadrilla.">
-              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
-              <span>Horas mal dimensionadas</span>
-            </button>
-            <button class="fig-btn" type="button" data-figure="assets/figuras/v4_escenarios_total_y_diario.png" data-caption="Escenario de asignación de cuadrillas por sector: total y diario.">
-              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
-              <span>Escenario por sector</span>
-            </button>
-            <button class="fig-btn" type="button" data-figure="assets/figuras/v30_equilibrio.png" data-caption="Equilibrio entre déficit y horas ociosas según el número de cuadrillas.">
-              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
-              <span>Punto de equilibrio</span>
-            </button>
-            <button class="fig-btn" type="button" data-figure="assets/figuras/v30_flujo_caja.png" data-caption="Flujo de caja y rentabilidad de la cuadrilla de reserva.">
-              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
-              <span>Flujo de caja y rentabilidad</span>
-            </button>
-            <button class="fig-btn" type="button" data-figure="assets/figuras/v31_incumplimiento.png" data-caption="Costo por incumplimiento y umbral de probabilidad de multa.">
-              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg>
-              <span>Costo por incumplimiento</span>
-            </button>
-          </div>
-          <p class="flow-hint">Toca un bloque para ver su figura.</p>
+          <p>Con el pronóstico, las horas mal dimensionadas bajan un 38 %: unas <strong>1 468 horas al año</strong>. Los días críticos, en los que la demanda supera al pronóstico en más de cinco emergencias, pasan de 94 a 61. Son los días en que una emergencia urgente corre el riesgo de esperar más de una hora.</p>
+          <p>La ganancia más grande está en dónde se ubican las cuadrillas. Repartirlas entre sectores según la probabilidad de cada uno reduce un 24 % las horas en déficit con la misma nómina. Con el reparto y el pronóstico juntos, la inversión de 37,89 millones de pesos se recupera en unos 22 meses y deja un VPN de 99,36 millones a cinco años.</p>
+          <p>¿Y una cuadrilla de reserva? Protege más el cumplimiento, pero no se paga sola. Solo conviene si Surtigas estima que la probabilidad anual de una multa máxima supera el 3 %.</p>
+          <figure class="chart-card explorer" data-explorer aria-labelledby="exp-title">
+            <div class="segmented seg-scroll" role="group" aria-label="Figuras del impacto">
+              <button type="button" aria-pressed="true" data-chart="marginal">Horas mal dimensionadas</button>
+              <button type="button" aria-pressed="false" data-chart="escenarios">Escenario por sector</button>
+              <button type="button" aria-pressed="false" data-chart="equilibrio">Punto de equilibrio</button>
+              <button type="button" aria-pressed="false" data-chart="flujo">Flujo de caja</button>
+              <button type="button" aria-pressed="false" data-chart="incumplimiento">Costo por incumplimiento</button>
+            </div>
+            <div class="chart-head">
+              <div>
+                <p class="chart-title" id="exp-title" data-exp-title>Horas mal dimensionadas</p>
+                <p class="chart-desc" data-exp-desc></p>
+              </div>
+              <div class="chart-sub" data-exp-sub></div>
+            </div>
+            <div class="chart-plot" data-exp-plot></div>
+            <div class="chart-legend chart-legend-toggle" data-exp-legend></div>
+            <figcaption class="chart-foot">
+              <p class="chart-insight" data-exp-insight></p>
+              <button class="island" type="button" data-exp-island data-figure="assets/figuras/v30_marginal.png" data-caption="Horas mal dimensionadas y productividad marginal de la cuadrilla.">
+                <span class="island-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 3H3v6M15 21h6v-6M3 15v6h6M21 9V3h-6"/></svg></span>
+                <span class="island-text"><span class="island-kicker">Figura del paper</span><span class="island-title">Ver original</span></span>
+              </button>
+            </figcaption>
+            <noscript><p class="chart-note">Figuras: <a href="assets/figuras/v30_marginal.png">horas mal dimensionadas</a>, <a href="assets/figuras/v4_escenarios_total_y_diario.png">escenario por sector</a>, <a href="assets/figuras/v30_equilibrio.png">punto de equilibrio</a>, <a href="assets/figuras/v30_flujo_caja.png">flujo de caja</a>, <a href="assets/figuras/v31_incumplimiento.png">costo por incumplimiento</a>.</p></noscript>
+          </figure>
         </div>
       </div>
     </section>
@@ -253,8 +430,8 @@
       <span class="draw-tick tr" data-draw-tick aria-hidden="true"></span>
       <div class="wrap">
         <p class="eyebrow section-eyebrow" data-draw-eyebrow><span class="idx">06</span> / Equipo</p>
-        <h2 class="section-title" data-reveal>Equipo</h2>
-        <p class="section-lead" data-reveal>Cuatro estudiantes de Ingeniería Industrial de la Universidad Tecnológica de Bolívar.</p>
+        <h2 class="section-title" data-reveal data-words>Equipo</h2>
+        <p class="section-lead" data-reveal>Cuatro estudiantes de Ingeniería Industrial de la Universidad Tecnológica de Bolívar, entre ciencia de datos, finanzas y procesos.</p>
         <div class="badges" data-reveal-group>
           <article class="badge" data-reveal style="--c:var(--s1);--ci:var(--s1-ink)">
             <div class="badge-icon" aria-hidden="true">GD</div>
@@ -303,10 +480,10 @@
       <span class="draw-tick tr" data-draw-tick aria-hidden="true"></span>
       <div class="wrap closing-inner">
         <p class="eyebrow section-eyebrow" data-draw-eyebrow><span class="idx">07</span> / Descarga</p>
-        <h2 class="closing-title" data-reveal>Explora el proyecto completo</h2>
-        <p class="section-lead" data-reveal>Descarga el paper completo del proyecto.</p>
+        <h2 class="closing-title" data-reveal data-words>Explora el proyecto completo</h2>
+        <p class="section-lead" data-reveal>El documento trae todo el detalle: los datos, el protocolo, el tablero de control por rol y la evaluación financiera.</p>
         <div class="hero-ctas center" data-reveal>
-          <a class="btn btn-gradient" href="assets/paper-v3_15.pdf" download>Descargar el paper (PDF)</a>
+          <a class="btn btn-gradient" href="assets/modelo-analitico-y-predictivo.pdf" download="Modelo analítico y predictivo.pdf">Descargar el paper (PDF)</a>
         </div>
         <div class="social" data-reveal>
           <p>Sigma Analist</p>
@@ -347,5 +524,7 @@
   <script src="js/smooth.js"></script>
   <script src="js/ruler.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/serie-diaria.js"></script>
+  <script src="js/charts.js"></script>
 </body>
 </html>
